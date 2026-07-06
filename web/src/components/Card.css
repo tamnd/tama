@@ -1,0 +1,47 @@
+.tama-card {
+  background: var(--color-surface);
+  border: 2px solid var(--swan);
+  border-radius: var(--radius-l);
+  padding: var(--space-5);
+  color: var(--color-text);
+}
+
+.tama-card--well {
+  background: var(--polar);
+  border: none;
+  border-radius: var(--radius-m);
+}
+
+/* Same press feel as the secondary button. */
+.tama-card--clickable {
+  display: block;
+  width: 100%;
+  border-bottom: 4px solid var(--swan-deep);
+  background-clip: padding-box;
+  text-align: start;
+  cursor: pointer;
+  transition: filter var(--dur-fast);
+}
+
+@media (hover: hover) {
+  .tama-card--clickable:hover {
+    filter: brightness(0.98);
+  }
+}
+
+.tama-card--clickable:active {
+  transform: translateY(4px);
+  border-bottom-color: transparent;
+}
+
+.tama-card__header {
+  margin: 0 0 var(--space-4);
+}
+
+.tama-card__divider {
+  border: none;
+  border-top: 2px solid var(--swan);
+  margin-block: var(--space-4);
+  /* full bleed across the card's padding */
+  margin-inline: calc(-1 * var(--space-5));
+}
