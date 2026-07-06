@@ -24,7 +24,7 @@ CREATE TABLE sessions (
 CREATE INDEX sessions_user ON sessions (user_id);
 CREATE INDEX sessions_expiry ON sessions (expires_at);
 
--- id is "<target>-<base>" like "es-en".
+-- id is "<target>-from-<base>" like "es-from-en".
 CREATE TABLE courses (
     id          TEXT PRIMARY KEY,
     base_lang   TEXT NOT NULL,

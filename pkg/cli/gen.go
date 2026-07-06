@@ -20,7 +20,7 @@ func newGenCmd() *cobra.Command {
 		Long: "Course pack generation through the configured OpenAI-compatible\n" +
 			"endpoint. M1 only proves connectivity: --dry-run pings the endpoint\n" +
 			"and lists its models. Real generation lands in M8.",
-		Example: "  tama gen --course es-en --dry-run",
+		Example: "  tama gen --course es-from-en --dry-run",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if !dryRun {
 				return fmt.Errorf("generation is not implemented yet, run with --dry-run to test connectivity")
@@ -46,7 +46,7 @@ func newGenCmd() *cobra.Command {
 			return nil
 		},
 	}
-	cmd.Flags().StringVar(&course, "course", "", "course pair like es-en")
+	cmd.Flags().StringVar(&course, "course", "", "course pair like es-from-en")
 	cmd.Flags().BoolVar(&dryRun, "dry-run", false, "only check endpoint connectivity")
 	addDataFlag(cmd)
 	return cmd

@@ -16,7 +16,7 @@ go vet ./...
 gofmt -s -l .   # must print nothing
 ```
 
-The web app has its own checks under `web/`; run `make check` if you touched it.
+The web app has its own checks under `web/`; run `make test` and `make lint` if you touched it.
 
 ## Layout rules
 

@@ -5,7 +5,7 @@ import (
 	"database/sql"
 )
 
-// Course mirrors the courses table. ID is "<target>-<base>" like "es-en".
+// Course mirrors the courses table. ID is "<target>-from-<base>" like "es-from-en".
 type Course struct {
 	ID         string
 	BaseLang   string

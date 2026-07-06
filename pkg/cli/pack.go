@@ -26,7 +26,7 @@ func newPackCmd() *cobra.Command {
 		Long: "Reads pack files, zstd-compressed or plain JSON. M1 parses only the\n" +
 			"header (format, course, version); deep validation lands with the pack\n" +
 			"format in M8.",
-		Example: "  tama pack inspect es-en-v1.pack",
+		Example: "  tama pack inspect es-from-en-v1.pack",
 	}
 	cmd.AddCommand(newPackInspectCmd(), newPackValidateCmd())
 	return cmd
@@ -37,7 +37,7 @@ func newPackInspectCmd() *cobra.Command {
 		Use:     "inspect <file>",
 		Short:   "Print a pack's header",
 		Long:    "Prints the header fields of a pack file.",
-		Example: "  tama pack inspect es-en-v1.pack",
+		Example: "  tama pack inspect es-from-en-v1.pack",
 		Args:    cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			h, err := readPackHeader(args[0])
@@ -61,7 +61,7 @@ func newPackValidateCmd() *cobra.Command {
 		Use:     "validate <file>",
 		Short:   "Check a pack's header",
 		Long:    "Fails unless the file parses and the header carries a format, course, and version.",
-		Example: "  tama pack validate es-en-v1.pack",
+		Example: "  tama pack validate es-from-en-v1.pack",
 		Args:    cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			h, err := readPackHeader(args[0])

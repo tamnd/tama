@@ -140,11 +140,11 @@ func TestSeedDemoIsIdempotent(t *testing.T) {
 	if err != nil {
 		t.Fatalf("demo user: %v", err)
 	}
-	course, err := db.CourseByID(ctx, "es-en")
+	course, err := db.CourseByID(ctx, "es-from-en")
 	if err != nil || course.Status != "ready" || course.PackID == nil {
 		t.Errorf("course = %+v, %v", course, err)
 	}
-	pack, err := db.LatestPack(ctx, "es-en")
+	pack, err := db.LatestPack(ctx, "es-from-en")
 	if err != nil || pack.Version != 1 {
 		t.Fatalf("pack = %+v, %v", pack, err)
 	}
@@ -165,7 +165,7 @@ func TestSeedDemoIsIdempotent(t *testing.T) {
 	if err != nil || streak.Current != 3 {
 		t.Errorf("streak = %+v, %v", streak, err)
 	}
-	progress, err := db.ProgressForCourse(ctx, user.ID, "es-en")
+	progress, err := db.ProgressForCourse(ctx, user.ID, "es-from-en")
 	if err != nil || len(progress) != 1 {
 		t.Errorf("progress = %+v, %v", progress, err)
 	}
@@ -193,7 +193,7 @@ func TestPackInspectAndValidate(t *testing.T) {
 
 	for _, f := range []string{plain, packed} {
 		out, err := runCmd(t, "pack", "inspect", f)
-		if err != nil || !strings.Contains(out, "course:  es-en") {
+		if err != nil || !strings.Contains(out, "course:  es-from-en") {
 			t.Errorf("inspect %s = %q, %v", f, out, err)
 		}
 		out, err = runCmd(t, "pack", "validate", f)
@@ -210,7 +210,7 @@ func TestPackInspectAndValidate(t *testing.T) {
 }
 
 func TestGenRequiresDryRun(t *testing.T) {
-	if _, err := runCmd(t, "gen", "--course", "es-en", "--data", t.TempDir()); err == nil {
+	if _, err := runCmd(t, "gen", "--course", "es-from-en", "--data", t.TempDir()); err == nil {
 		t.Fatal("gen without --dry-run succeeded")
 	}
 }
