@@ -18,7 +18,7 @@ Then open http://localhost:4321.
 
 ## Configuration
 
-Everything is a flag, an environment variable, or a default, in that order.
+Everything is a flag, an environment variable, a config file entry, or a default, in that order.
 
 | Env | Default | What |
 | --- | --- | --- |
@@ -27,6 +27,29 @@ Everything is a flag, an environment variable, or a default, in that order.
 | `TAMA_LLM_BASE_URL` | `http://127.0.0.1:8000/v1` | OpenAI-compatible endpoint for course generation |
 | `TAMA_LLM_API_KEY` | empty | API key for that endpoint |
 | `TAMA_LLM_MODEL` | empty | model name to request |
+| `TAMA_LOG_LEVEL` | `info` | `debug`, `info`, `warn`, or `error`; append `,json` for JSON logs |
+
+The config file is `config.toml` in the data directory, so `~/.tama/config.toml` by default.
+Every key is optional; unknown keys are warnings, not errors.
+
+```toml
+[server]
+addr = ":4321"
+data = "~/.tama"
+
+[llm]
+base_url = "http://127.0.0.1:8000/v1"
+api_key = ""
+model = ""
+request_timeout = "5m"
+connect_timeout = "30s"
+
+[log]
+level = "info"   # debug, info, warn, error
+format = "text"  # text or json
+```
+
+`tama serve --print-config` prints the resolved values and where each one came from.
 
 The server never calls the LLM during lessons.
 Generation happens through `tama gen` or the admin queue, and the results are cached as course packs under the data directory.
