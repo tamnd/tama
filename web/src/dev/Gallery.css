@@ -1,0 +1,124 @@
+.tama-gallery {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4) 120px;
+}
+
+.tama-gallery__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.tama-gallery__header h1 {
+  font-size: var(--text-xl);
+}
+
+.tama-gallery__section {
+  margin-top: var(--space-8);
+}
+
+.tama-gallery__section-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  border-bottom: 2px solid var(--color-border);
+  padding-bottom: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.tama-gallery__section-header h2 {
+  font-size: var(--text-l);
+}
+
+.tama-gallery__section-header code {
+  color: var(--color-text-secondary);
+  font-size: var(--text-xs);
+}
+
+.tama-gallery__note {
+  color: var(--color-text-secondary);
+  font-size: var(--text-s);
+  margin-bottom: var(--space-4);
+}
+
+.tama-gallery__group {
+  margin-bottom: var(--space-4);
+}
+
+.tama-gallery__swatches {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-2) 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-2);
+}
+
+.tama-gallery__swatch {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+}
+
+.tama-gallery__swatch-chip {
+  flex: none;
+  width: 56px;
+  height: 36px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-s);
+  background: var(--swatch);
+}
+
+.tama-gallery__swatch-value {
+  color: var(--color-text-secondary);
+}
+
+.tama-gallery__specimen {
+  font-size: var(--specimen-size, var(--text-m));
+  margin-bottom: var(--space-3);
+}
+
+.tama-gallery__specimen code {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+}
+
+.tama-gallery__w-body {
+  font-weight: 700;
+}
+
+.tama-gallery__w-heading {
+  font-weight: 800;
+}
+
+.tama-gallery__w-black {
+  font-weight: 900;
+}
+
+.tama-gallery__grid {
+  display: grid;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.tama-gallery__row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.tama-gallery__radius-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  margin-top: var(--space-2);
+  border: 2px solid var(--color-border);
+  border-radius: var(--chip-radius, 0);
+  background: var(--polar);
+  font-size: var(--text-xs);
+}
