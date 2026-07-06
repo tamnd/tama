@@ -2,8 +2,8 @@
 
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
-import { Button } from '../src/components/Button'
-import { Modal } from '../src/components/Modal'
+import { Button } from '@/components/Button'
+import { Modal } from '@/components/Modal'
 
 // jsdom ships HTMLDialogElement but not showModal/close yet; stub the two
 // methods on the prototype so the component's native path runs unchanged.

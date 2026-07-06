@@ -35,10 +35,7 @@ export function ProgressBar({ value, max, showFlame = false, label }: ProgressBa
       aria-valuemax={max}
       aria-label={label}
     >
-      <div
-        className="tama-progress__fill"
-        style={{ '--progress': `${pct}%` } as CSSProperties}
-      >
+      <div className="tama-progress__fill" style={{ '--progress': `${pct}%` } as CSSProperties}>
         {sweep > 0 && <span key={sweep} className="tama-progress__shimmer" aria-hidden="true" />}
       </div>
       {showFlame && (

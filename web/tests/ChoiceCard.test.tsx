@@ -8,7 +8,11 @@ afterEach(cleanup)
 
 describe('ChoiceCard', () => {
   it('wraps a native radio labeled by the card text', () => {
-    render(<ChoiceCard name="answer" value="a">el agua</ChoiceCard>)
+    render(
+      <ChoiceCard name="answer" value="a">
+        el agua
+      </ChoiceCard>,
+    )
     const radio = screen.getByRole('radio', { name: 'el agua' }) as HTMLInputElement
     expect(radio.value).toBe('a')
     fireEvent.click(radio)

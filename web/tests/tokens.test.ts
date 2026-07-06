@@ -46,7 +46,7 @@ describe('tokens.css', () => {
   })
 
   it('has a dark theme block', () => {
-    expect(css).toContain('html[data-theme=\'dark\']')
+    expect(css).toContain("html[data-theme='dark']")
   })
 
   it.each(DARK_HEX)('dark palette contains %s', (hex) => {

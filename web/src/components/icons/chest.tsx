@@ -31,15 +31,9 @@ export function ChestIcon({ size = 24, open = false }: ChestProps) {
   return (
     <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden="true">
       {/* lid */}
-      <path
-        d="M3 11V8a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v3z"
-        fill="var(--chest-band, var(--fox))"
-      />
+      <path d="M3 11V8a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v3z" fill="var(--chest-band, var(--fox))" />
       {/* body */}
-      <path
-        d="M3 11h18v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
-        fill="var(--chest-body, var(--bee))"
-      />
+      <path d="M3 11h18v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="var(--chest-body, var(--bee))" />
       {/* clasp */}
       <rect x="10.5" y="9" width="3" height="5.5" rx="1" fill="var(--chest-band, var(--fox))" />
     </svg>

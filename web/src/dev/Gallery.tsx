@@ -399,7 +399,9 @@ function OverlayDemos() {
           </>
         }
       >
-        <p>A quick five-minute session keeps the streak alive. Esc or the backdrop closes this one.</p>
+        <p>
+          A quick five-minute session keeps the streak alive. Esc or the backdrop closes this one.
+        </p>
       </Modal>
 
       <Modal

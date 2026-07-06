@@ -48,10 +48,10 @@ export function WordBank({
       const raw = parseFloat(getComputedStyle(el).getPropertyValue('--dur-base'))
       const duration = Number.isNaN(raw) ? 300 : raw
       if (duration === 0) return
-      el.animate(
-        [{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'translate(0, 0)' }],
-        { duration, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' },
-      )
+      el.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'translate(0, 0)' }], {
+        duration,
+        easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+      })
     })
   })
 
