@@ -22,7 +22,7 @@ func newServeCmd() *cobra.Command {
 				return err
 			}
 
-			st, err := store.Open(cfg.DBPath())
+			st, err := store.Open(cmd.Context(), cfg.DBPath())
 			if err != nil {
 				return fmt.Errorf("open store: %w", err)
 			}

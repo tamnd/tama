@@ -20,12 +20,12 @@ import (
 // Server holds the pieces the handlers need.
 type Server struct {
 	cfg *config.Config
-	st  *store.Store
+	st  *store.DB
 	mux *http.ServeMux
 }
 
 // New wires the routes.
-func New(cfg *config.Config, st *store.Store) *Server {
+func New(cfg *config.Config, st *store.DB) *Server {
 	s := &Server{cfg: cfg, st: st, mux: http.NewServeMux()}
 
 	s.mux.HandleFunc("GET /api/health", s.handleHealth)
