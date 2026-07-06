@@ -139,5 +139,5 @@ function Home() {
 // The path snakes left and right as it descends, like a winding trail.
 function nodeOffset(i: number): number {
   const wave = [0, -44, -70, -44, 0, 44]
-  return wave[i % wave.length]
+  return wave[i % wave.length] ?? 0
 }

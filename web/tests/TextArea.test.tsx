@@ -2,7 +2,7 @@
 
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it } from 'vitest'
-import { TextArea } from '../src/components/TextArea'
+import { TextArea } from '@/components/TextArea'
 
 afterEach(cleanup)
 

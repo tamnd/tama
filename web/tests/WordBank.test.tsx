@@ -2,7 +2,7 @@
 
 import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { WordBank } from '../src/components/WordBank'
+import { WordBank } from '@/components/WordBank'
 
 afterEach(cleanup)
 
