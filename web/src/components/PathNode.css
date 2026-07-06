@@ -80,6 +80,7 @@
   top: -12px;
   left: -12px;
   width: 94px;
+  max-width: none; /* the reset caps svg at the button's width */
   height: 94px;
   pointer-events: none;
 }
