@@ -1,66 +1,117 @@
-/* Design tokens. Color role names follow the palette the whole UI is built
-   from; components only ever reference the CSS variables, never raw hex. */
+/* Design tokens: the single source of truth for color, space, type, and
+   motion. Component CSS reads these variables and never hardcodes a value
+   that has a token here. Palette names follow the product's color roles.
+
+   The mobile breakpoint is 700px. Media queries cannot read custom
+   properties, so the value is duplicated in breakpoints.ts when JS layout
+   logic lands; keep the two in sync. */
 
 :root {
-  /* greens */
-  --feather: #58cc02;
-  --feather-dark: #58a700;
-  --mask: #89e219;
-  --seaweed: #d7ffb8;
-
-  /* blues */
-  --macaw: #1cb0f6;
-  --macaw-dark: #1899d6;
-  --humpback: #2b70c9;
-  --whale: #084c77;
-
-  /* reds and yellows */
-  --cardinal: #ff4b4b;
-  --cardinal-dark: #ea2b2b;
-  --blush: #ffdfe0;
-  --bee: #ffc800;
-  --bee-dark: #e5a600;
-  --fox: #ff9600;
-  --beetle: #ce82ff;
-  --beetle-dark: #a560e8;
+  /* brand palette */
+  --feather-green: #58CC02; /* primary actions, correct state */
+  --mask-green: #89E219; /* primary button highlight, mascot accents */
+  --macaw: #1CB0F6; /* blue accent, links, selected state */
+  --cardinal: #FF4B4B; /* errors, hearts */
+  --bee: #FFC800; /* streak flame, crowns */
+  --fox: #FF9600; /* orange accents */
+  --beetle: #CE82FF; /* quests, legendary */
+  --humpback: #2B70C9; /* deep blue */
+  --whale: #084C77; /* darkest blue */
 
   /* greys */
-  --eel: #4b4b4b;
-  --wolf: #777777;
-  --hare: #afafaf;
-  --swan: #e5e5e5;
-  --polar: #f7f7f7;
-  --snow: #ffffff;
+  --eel: #4B4B4B; /* body text */
+  --wolf: #777777; /* secondary text */
+  --hare: #AFAFAF; /* disabled text */
+  --swan: #E5E5E5; /* borders, disabled fills */
+  --polar: #F7F7F7; /* background fills, wells */
+  --snow: #FFFFFF; /* surfaces */
 
-  /* semantic */
-  --bg: var(--snow);
-  --card-border: var(--swan);
-  --text: var(--eel);
-  --text-secondary: var(--wolf);
+  /* depth edges: every 3D face has a matched darker bottom border */
+  --feather-green-deep: #58A700;
+  --macaw-deep: #1899D6;
+  --cardinal-deep: #EA2B2B;
+  --bee-deep: #E5B800;
+  --beetle-deep: #A568CC;
+  --swan-deep: #CFCFCF;
 
-  /* shape */
-  --radius: 16px;
-  --radius-sm: 12px;
-  --depth: 4px;
+  /* feedback fills */
+  --correct-fill: #D7FFB8;
+  --incorrect-fill: #FFDFE0;
+
+  /* semantic aliases: components read intent, not palette */
+  --color-primary: var(--feather-green);
+  --color-correct: var(--feather-green);
+  --color-error: var(--cardinal);
+  --color-link: var(--macaw);
+  --color-text: var(--eel);
+  --color-text-secondary: var(--wolf);
+  --color-disabled: var(--hare);
+  --color-border: var(--swan);
+  --color-bg: var(--snow);
+  --color-surface: var(--snow);
+
+  /* spacing, 4px base */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 40px;
+  --space-8: 48px;
+
+  /* radii: cards and modals large, rows and wells medium */
+  --radius-s: 8px;
+  --radius-m: 12px;
+  --radius-l: 16px;
+  --radius-pill: 999px;
+
+  /* type */
+  --font-body: 'Nunito', system-ui, sans-serif;
+  --text-xs: 13px;
+  --text-s: 15px;
+  --text-m: 17px; /* body */
+  --text-l: 19px; /* exercise prompts */
+  --text-xl: 25px; /* screen titles */
+  --text-2xl: 32px; /* celebration numbers */
+  --leading-body: 1.4;
+  --leading-tight: 1.2;
 
   /* motion */
-  --fast: 150ms;
-  --base: 300ms;
-
-  font-family: 'Nunito', -apple-system, sans-serif;
+  --dur-fast: 150ms; /* presses, toggles, chip state */
+  --dur-base: 300ms; /* sheets, bar fills, chip travel */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #131f24;
-    --card-border: #37464f;
-    --text: #f1f7fb;
-    --text-secondary: #52656d;
-    --polar: #202f36;
-    --snow: #131f24;
-    --swan: #37464f;
-    --eel: #f1f7fb;
-    --wolf: #dce6ec;
-    --hare: #52656d;
-  }
+/* Dark theme. Brand colors keep their hex; the greys re-point so palette
+   references stay legible, the depth edges darken one step, and the
+   semantic aliases resolve to the dark base #131F24 / surface #202F36.
+   All values are explicit, no runtime color math. */
+
+html[data-theme='dark'] {
+  --eel: #F1F7FB; /* body text */
+  --wolf: #DCE6EC; /* secondary text */
+  --hare: #52656D; /* disabled text */
+  --swan: #37464F; /* borders, disabled fills */
+  --polar: #202F36; /* wells */
+  --snow: #131F24; /* base, also text on brand faces */
+
+  --feather-green-deep: #4A8F00;
+  --macaw-deep: #1480B4;
+  --cardinal-deep: #C42525;
+  --bee-deep: #C29C00;
+  --beetle-deep: #8A55AC;
+  --swan-deep: #2C3B43;
+
+  /* surface tinted 20% with feather green / cardinal */
+  --correct-fill: #2B4E2C;
+  --incorrect-fill: #4D353A;
+
+  --color-text: #F1F7FB;
+  --color-text-secondary: #DCE6EC;
+  --color-disabled: #52656D;
+  --color-border: #37464F;
+  --color-bg: #131F24;
+  --color-surface: #202F36;
 }

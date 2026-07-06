@@ -1,0 +1,94 @@
+/* Depth is a solid darker border-bottom, never a shadow. The face color
+   must not paint under that border, hence background-clip: padding-box. */
+
+.tama-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 50px;
+  padding: 0 var(--space-4);
+  border: 0 solid transparent;
+  border-bottom-width: 4px;
+  border-radius: var(--radius-l);
+  background-clip: padding-box;
+  color: var(--snow);
+  font-size: var(--text-s);
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: filter var(--dur-fast);
+}
+
+.tama-button--primary {
+  background-color: var(--feather-green);
+  border-bottom-color: var(--feather-green-deep);
+}
+
+.tama-button--blue {
+  background-color: var(--macaw);
+  border-bottom-color: var(--macaw-deep);
+}
+
+.tama-button--danger {
+  background-color: var(--cardinal);
+  border-bottom-color: var(--cardinal-deep);
+}
+
+.tama-button--super {
+  background-color: var(--beetle);
+  border-bottom-color: var(--beetle-deep);
+}
+
+.tama-button--secondary {
+  background-color: var(--snow);
+  border: 2px solid var(--swan);
+  border-bottom: 4px solid var(--swan-deep);
+  color: var(--macaw);
+}
+
+.tama-button--small {
+  min-height: 40px;
+}
+
+.tama-button--large {
+  min-height: 58px;
+}
+
+.tama-button--full {
+  display: flex;
+  width: 100%;
+}
+
+.tama-button__icon {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+}
+
+.tama-button__icon > * {
+  width: 100%;
+  height: 100%;
+}
+
+@media (hover: hover) {
+  .tama-button:hover:not(:disabled) {
+    filter: brightness(1.05);
+  }
+}
+
+/* The press: the face travels down into its own depth. Collapsing the
+   border color instead of its width keeps the box height constant, so
+   nothing below the button shifts. */
+.tama-button:active:not(:disabled) {
+  transform: translateY(4px);
+  border-bottom-color: transparent;
+}
+
+.tama-button:disabled {
+  background-color: var(--swan);
+  border-color: var(--swan);
+  color: var(--hare);
+  cursor: default;
+}

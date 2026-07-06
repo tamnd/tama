@@ -1,0 +1,46 @@
+/* Shared keyframes and the reduced-motion switch. Durations and easings
+   live in tokens.css; component CSS references both. */
+
+/* Badges, the combo flame, and celebration elements pop in with this. */
+@keyframes pop-in {
+  0% {
+    transform: scale(0.8);
+  }
+
+  60% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Zero the duration tokens and kill decorative loops for people who asked
+   for less motion, either through the OS or the in-app setting. */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur-base: 0ms;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+.reduce-motion {
+  --dur-fast: 0ms;
+  --dur-base: 0ms;
+}
+
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+}

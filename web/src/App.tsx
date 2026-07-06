@@ -1,4 +1,23 @@
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState, type CSSProperties } from 'react'
+import { Button } from './components/Button'
+import { Card, CardHeader } from './components/Card'
+import './app.css'
+
+// The gallery is compiled in for dev builds and behind the __GALLERY__ flag;
+// production builds drop the chunk entirely.
+const galleryEnabled = import.meta.env.DEV || __GALLERY__
+const Gallery = galleryEnabled ? lazy(() => import('./dev/Gallery')) : null
+
+export function App() {
+  if (Gallery && window.location.pathname === '/dev/gallery') {
+    return (
+      <Suspense fallback={null}>
+        <Gallery />
+      </Suspense>
+    )
+  }
+  return <Home />
+}
 
 // Static shell for the foundation milestone: the three-column layout, the nav
 // rail, a demo path, and the sidebar widgets. Real data arrives with M3/M5.
@@ -29,7 +48,7 @@ const DEMO_PATH: { state: NodeState; icon: string }[] = [
   { state: 'locked', icon: '\u{1F3C6}' },
 ]
 
-export function App() {
+function Home() {
   const [catalogSize, setCatalogSize] = useState<number | null>(null)
 
   useEffect(() => {
@@ -72,7 +91,7 @@ export function App() {
               <button
                 className={`node ${node.state}`}
                 disabled={node.state === 'locked'}
-                style={{ marginLeft: nodeOffset(i) }}
+                style={{ '--node-offset': `${nodeOffset(i)}px` } as CSSProperties}
               >
                 {node.state === 'chest' ? '\u{1F381}' : node.icon}
               </button>
@@ -95,23 +114,23 @@ export function App() {
           </span>
         </div>
 
-        <div className="card">
-          <h3>Daily quests</h3>
+        <Card>
+          <CardHeader>Daily quests</CardHeader>
           <p>Earn 30 XP</p>
           <div className="quest-bar">
-            <div className="quest-bar-fill" style={{ width: '0%' }} />
+            <div className="quest-bar-fill" style={{ '--quest-progress': '0%' } as CSSProperties} />
           </div>
-        </div>
+        </Card>
 
-        <div className="card">
-          <h3>Pick a course</h3>
+        <Card>
+          <CardHeader>Pick a course</CardHeader>
           <p>
             {catalogSize === null
               ? 'Any language to any language.'
               : `${catalogSize} courses from English, or generate any other pair.`}
           </p>
-          <button className="btn btn-primary">Get started</button>
-        </div>
+          <Button variant="primary">Get started</Button>
+        </Card>
       </aside>
     </div>
   )

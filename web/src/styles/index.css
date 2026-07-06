@@ -1,0 +1,6 @@
+/* The single CSS entry. Order matters: tokens first, then the reset,
+   then shared motion. Component CSS is imported by each component. */
+
+@import './tokens.css';
+@import './base.css';
+@import './motion.css';
