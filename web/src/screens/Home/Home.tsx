@@ -1,23 +1,10 @@
-import { lazy, Suspense, useEffect, useState, type CSSProperties } from 'react'
-import { Button } from './components/Button'
-import { Card, CardHeader } from './components/Card'
-import './app.css'
-
-// The gallery is compiled in for dev builds and behind the __GALLERY__ flag;
-// production builds drop the chunk entirely.
-const galleryEnabled = import.meta.env.DEV || __GALLERY__
-const Gallery = galleryEnabled ? lazy(() => import('./dev/Gallery')) : null
-
-export function App() {
-  if (Gallery && window.location.pathname === '/dev/gallery') {
-    return (
-      <Suspense fallback={null}>
-        <Gallery />
-      </Suspense>
-    )
-  }
-  return <Home />
-}
+import { useEffect, useState, type CSSProperties } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { logout } from '@/api/client'
+import { Button } from '@/components/Button'
+import { Card, CardHeader } from '@/components/Card'
+import { useAuth } from '@/state/auth'
+import './Home.css'
 
 // Static shell for the foundation milestone: the three-column layout, the nav
 // rail, a demo path, and the sidebar widgets. Real data arrives with M3/M5.
@@ -48,15 +35,29 @@ const DEMO_PATH: { state: NodeState; icon: string }[] = [
   { state: 'locked', icon: '\u{1F3C6}' },
 ]
 
-function Home() {
+export function Home() {
   const [catalogSize, setCatalogSize] = useState<number | null>(null)
+  const { signOut } = useAuth()
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetch('/api/catalog?from=en')
-      .then((r) => r.json())
-      .then((courses: Course[]) => setCatalogSize(courses.length))
+      .then((r) => r.json() as Promise<Course[]>)
+      .then((courses) => setCatalogSize(courses.length))
       .catch(() => setCatalogSize(null))
   }, [])
+
+  function handleLogout() {
+    void (async () => {
+      try {
+        await logout()
+      } catch {
+        // A dead session is already logged out.
+      }
+      signOut()
+      await navigate('/login', { replace: true })
+    })()
+  }
 
   return (
     <div className="layout">
@@ -131,6 +132,10 @@ function Home() {
           </p>
           <Button variant="primary">Get started</Button>
         </Card>
+
+        <Button variant="secondary" size="small" onClick={handleLogout}>
+          Log out
+        </Button>
       </aside>
     </div>
   )

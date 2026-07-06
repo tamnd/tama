@@ -4,7 +4,7 @@ import '@fontsource/nunito/700.css'
 import '@fontsource/nunito/800.css'
 import '@fontsource/nunito/900.css'
 import './styles/index.css'
-import { App } from './App'
+import { App } from '@/app/App'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
