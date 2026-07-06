@@ -1,21 +1,29 @@
 .PHONY: build web dev test lint
 
-# Build the binary with the current web/dist embedded.
-build:
+# Build the binary with a fresh web bundle embedded.
+build: web
 	go build -o tama ./cmd/tama
 
 # Rebuild the frontend into web/dist (committed, so plain go build works).
 web:
-	cd web && npm install && npm run build
+	cd web && npm ci && npm run build
 
-# Dev loop: run `make dev` in one terminal and `cd web && npm run dev` in
-# another; Vite proxies /api to the Go server.
+# Dev loop: Vite serves the hot-reloading UI, the Go server proxies to it.
 dev:
-	go run ./cmd/tama serve
+	@trap 'kill 0' EXIT INT TERM; \
+	(cd web && npm run dev) & \
+	go run ./cmd/tama serve --dev
 
 test:
 	go test -race ./...
-	cd web && npm run typecheck && npm test
+	cd web && npm test
 
 lint:
-	gofmt -s -l . && go vet ./...
+	@unformatted=$$(gofmt -s -l .); \
+	if [ -n "$$unformatted" ]; then \
+		echo "These files need gofmt -s -w:"; \
+		echo "$$unformatted"; \
+		exit 1; \
+	fi
+	go vet ./...
+	cd web && npx tsc --noEmit
