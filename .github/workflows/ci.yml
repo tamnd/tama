@@ -13,11 +13,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
+  go:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7.0.0
-      - uses: actions/setup-go@v6
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
         with:
           go-version-file: go.mod
           check-latest: true
@@ -40,8 +40,8 @@ jobs:
   web:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7.0.0
-      - uses: actions/setup-node@v4.4.0
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
           node-version: 24
           cache: npm
@@ -52,12 +52,73 @@ jobs:
         run: cd web && npm run build
       - name: test
         run: cd web && npm test
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: web-dist
+          path: web/dist
+
+  binary:
+    needs: [go, web]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        goos: [darwin, linux]
+        goarch: [arm64, amd64]
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
+        with:
+          go-version-file: go.mod
+          check-latest: true
+          cache: true
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: web-dist
+          path: web/dist
+      - name: build
+        env:
+          CGO_ENABLED: "0"
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+        run: go build -o tama-${{ matrix.goos }}-${{ matrix.goarch }} ./cmd/tama
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: tama-${{ matrix.goos }}-${{ matrix.goarch }}
+          path: tama-${{ matrix.goos }}-${{ matrix.goarch }}
+
+  smoke:
+    needs: binary
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: tama-linux-amd64
+      - name: boot and probe
+        run: |
+          chmod +x tama-linux-amd64
+          data=$(mktemp -d)
+          ./tama-linux-amd64 serve --addr 127.0.0.1:4321 --data "$data" &
+          pid=$!
+          trap 'kill "$pid" 2>/dev/null || true' EXIT
+
+          for _ in $(seq 1 50); do
+            curl -fsS http://127.0.0.1:4321/api/healthz >/dev/null 2>&1 && break
+            sleep 0.2
+          done
+
+          code=$(curl -sS -o /dev/null -w '%{http_code}' http://127.0.0.1:4321/api/healthz)
+          [ "$code" = 200 ] || { echo "healthz returned $code" >&2; exit 1; }
+
+          index=$(mktemp)
+          code=$(curl -sS -o "$index" -w '%{http_code}' http://127.0.0.1:4321/)
+          [ "$code" = 200 ] || { echo "/ returned $code" >&2; exit 1; }
+          grep -q '<title>tama</title>' "$index" || { echo "SPA title missing from /" >&2; exit 1; }
 
   tidy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7.0.0
-      - uses: actions/setup-go@v6
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
         with:
           go-version-file: go.mod
           check-latest: true
