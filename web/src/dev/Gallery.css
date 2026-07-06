@@ -162,6 +162,20 @@
   margin-bottom: var(--space-5);
 }
 
+/* Anchors for the popover demo. The popovers are fixed elements pinned to
+   these nodes, so the row reserves the vertical room they hang into. */
+.tama-gallery__popover-row {
+  display: flex;
+  gap: 280px;
+  /* room above for the START bubble, below for the hanging popovers */
+  padding-top: 64px;
+  padding-bottom: 140px;
+}
+
+.tama-gallery__popover-anchor {
+  width: fit-content;
+}
+
 .tama-gallery__radius-chip {
   display: inline-flex;
   align-items: center;

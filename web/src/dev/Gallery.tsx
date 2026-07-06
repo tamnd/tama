@@ -1,16 +1,20 @@
-import { useState, type CSSProperties, type ReactNode } from 'react'
+import { useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import { Button, type ButtonVariant } from '../components/Button'
 import { Card, CardHeader, Divider } from '../components/Card'
 import { ChoiceCard } from '../components/ChoiceCard'
 import { FeedbackBanner, type FeedbackKind } from '../components/FeedbackBanner'
 import { Field } from '../components/Field'
+import { StreakFlameIcon } from '../components/icons/streak-flame'
+import { Modal } from '../components/Modal'
 import { CharacterGate, ChestNode, PathNode } from '../components/PathNode'
 import { DEMO_PATH, serpentineOffset } from '../components/PathNode.stories.data'
+import { Popover } from '../components/Popover'
 import { ProgressBar } from '../components/ProgressBar'
 import { SpeechBubble } from '../components/SpeechBubble'
 import { TapToken } from '../components/TapToken'
 import { TextArea } from '../components/TextArea'
 import { TextInput } from '../components/TextInput'
+import { ToastProvider, useToast } from '../components/Toast'
 import { Toggle } from '../components/Toggle'
 import { WordBank } from '../components/WordBank'
 import './Gallery.css'
@@ -325,6 +329,116 @@ function FormsSection() {
   )
 }
 
+// The app will mount one ToastProvider at its root; the gallery scopes one
+// to this section so the demo stays self-contained.
+function OverlaySection() {
+  return (
+    <ToastProvider>
+      <OverlayDemos />
+    </ToastProvider>
+  )
+}
+
+function OverlayDemos() {
+  const [modal, setModal] = useState(false)
+  const [blocking, setBlocking] = useState(false)
+  const [popovers, setPopovers] = useState(true)
+  const greenAnchor = useRef<HTMLDivElement>(null)
+  const neutralAnchor = useRef<HTMLDivElement>(null)
+  const toast = useToast()
+  const count = useRef(0)
+
+  function fireToast() {
+    count.current += 1
+    toast(`Streak extended! Day ${count.current}`, { icon: <StreakFlameIcon size={20} /> })
+  }
+
+  return (
+    <Section
+      title="Overlays"
+      path="web/src/components/Modal.tsx"
+      note="The modal closes on Esc and backdrop click unless blocking; its footer stacks buttons with the primary last on screen but first in tab order. Popovers hang under their anchor nodes and never take focus. Toasts stack top-center, at most three, and leave after 4s."
+    >
+      <div className="tama-gallery__row">
+        <Button variant="blue" size="small" onClick={() => setModal(true)}>
+          Open modal
+        </Button>
+        <Button variant="secondary" size="small" onClick={() => setBlocking(true)}>
+          Open blocking modal
+        </Button>
+        <Button variant="primary" size="small" onClick={fireToast}>
+          Fire toast
+        </Button>
+        <Button
+          variant="secondary"
+          size="small"
+          onClick={() => {
+            fireToast()
+            fireToast()
+            fireToast()
+            fireToast()
+          }}
+        >
+          Fire four toasts
+        </Button>
+        <Button variant="secondary" size="small" onClick={() => setPopovers((v) => !v)}>
+          {popovers ? 'Hide popovers' : 'Show popovers'}
+        </Button>
+      </div>
+
+      <Modal
+        open={modal}
+        onClose={() => setModal(false)}
+        title="Ready to practice?"
+        footer={
+          <>
+            <Button onClick={() => setModal(false)}>Start lesson</Button>
+            <Button variant="secondary" onClick={() => setModal(false)}>
+              Not now
+            </Button>
+          </>
+        }
+      >
+        <p>A quick five-minute session keeps the streak alive. Esc or the backdrop closes this one.</p>
+      </Modal>
+
+      <Modal
+        open={blocking}
+        onClose={() => setBlocking(false)}
+        blocking
+        title="Hearts are out"
+        footer={
+          <Button variant="danger" onClick={() => setBlocking(false)}>
+            Got it
+          </Button>
+        }
+      >
+        <p>Blocking: Esc and backdrop clicks are ignored, only the button gets out.</p>
+      </Modal>
+
+      <h3 className="label-caps">Popover variants</h3>
+      <div className="tama-gallery__popover-row">
+        <div ref={greenAnchor} className="tama-gallery__popover-anchor">
+          <PathNode state="active" label="Active node with popover" />
+        </div>
+        <div ref={neutralAnchor} className="tama-gallery__popover-anchor">
+          <PathNode state="locked" label="Locked node with popover" />
+        </div>
+      </div>
+      {popovers && (
+        <>
+          <Popover anchorRef={greenAnchor} variant="green">
+            <strong>Order food and drink</strong>
+            <br />
+            Lesson 1 of 4
+          </Popover>
+          <Popover anchorRef={neutralAnchor}>Complete the level above to unlock this!</Popover>
+        </>
+      )}
+    </Section>
+  )
+}
+
 const starIcon = (
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
     <path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z" />
@@ -453,6 +567,7 @@ export default function Gallery() {
       <SpeechBubbleSection />
       <WordBankSection />
       <FormsSection />
+      <OverlaySection />
     </div>
   )
 }
