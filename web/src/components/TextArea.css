@@ -1,0 +1,39 @@
+/* Same treatment as the text input, plus the 2 to 6 row auto-grow band.
+   The JS writes the measured height into --textarea-height; the clamp
+   lives here so the numbers stay in token math. */
+
+.tama-textarea {
+  width: 100%;
+  height: var(--textarea-height, auto);
+  min-height: calc(var(--leading-body) * var(--text-m) * 2 + var(--space-4) * 2 + 4px);
+  max-height: calc(var(--leading-body) * var(--text-m) * 6 + var(--space-4) * 2 + 4px);
+  padding: var(--space-4);
+  border: 2px solid var(--swan);
+  border-radius: var(--radius-m);
+  background: var(--polar);
+  color: var(--eel);
+  font-size: var(--text-m);
+  font-weight: 700;
+  line-height: var(--leading-body);
+  resize: none;
+  overflow-y: auto;
+}
+
+.tama-textarea::placeholder {
+  color: var(--wolf);
+  opacity: 1;
+}
+
+.tama-textarea:focus {
+  border-color: var(--macaw);
+  outline: none;
+}
+
+.tama-textarea[aria-invalid='true'] {
+  border-color: var(--cardinal);
+}
+
+.tama-textarea:disabled {
+  color: var(--hare);
+  cursor: default;
+}
