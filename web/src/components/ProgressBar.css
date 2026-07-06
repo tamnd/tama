@@ -1,0 +1,63 @@
+/* The lesson progress pill. Depth-free by design: a flat swan track with a
+   feather fill that carries the mask-green top highlight, exactly 4px tall
+   and inset 4px, like the real one. */
+
+.tama-progress {
+  position: relative;
+  height: 16px;
+  border-radius: var(--radius-pill);
+  background: var(--swan);
+}
+
+.tama-progress__fill {
+  position: relative;
+  height: 100%;
+  width: var(--progress, 0%);
+  border-radius: var(--radius-pill);
+  background: var(--feather-green);
+  overflow: hidden;
+  transition: width var(--dur-base) var(--ease-out);
+}
+
+/* The highlight stripe rides inside the fill. */
+.tama-progress__fill::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--mask-green);
+}
+
+/* One 40px snow band sweeps across the fill per increment; the element is
+   remounted per sweep, so the animation runs exactly once. */
+.tama-progress__shimmer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -40px;
+  width: 40px;
+  background: color-mix(in srgb, var(--snow) 30%, transparent);
+  animation: progress-shimmer var(--dur-base) linear forwards;
+}
+
+@keyframes progress-shimmer {
+  from {
+    left: -40px;
+  }
+
+  to {
+    left: 100%;
+  }
+}
+
+/* Combo flame slot at the bar's right end, popping in over dur-fast. */
+.tama-progress__flame {
+  position: absolute;
+  top: -8px;
+  right: -6px;
+  display: inline-flex;
+  animation: pop-in var(--dur-fast) var(--ease-bounce);
+}
