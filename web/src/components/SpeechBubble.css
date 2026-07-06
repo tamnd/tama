@@ -1,0 +1,71 @@
+/* The exercise speech bubble. The tail is two stacked border triangles,
+   swan under surface, same trick as the path node's START bubble but
+   pointing left toward the character. */
+
+.tama-speech-bubble {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: 2px solid var(--swan);
+  border-radius: var(--radius-l);
+}
+
+.tama-speech-bubble__text {
+  color: var(--eel);
+  font-size: var(--text-l);
+}
+
+/* Border-built tail: the swan triangle, then a smaller surface one on top. */
+.tama-speech-bubble::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  right: 100%;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid var(--swan);
+}
+
+.tama-speech-bubble::after {
+  content: '';
+  position: absolute;
+  top: 23px;
+  right: calc(100% - 2px);
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid var(--color-surface);
+}
+
+/* The audio button: a small macaw press-down square before the prompt. */
+.tama-speech-bubble__audio {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0 solid transparent;
+  border-bottom-width: 2px;
+  border-bottom-color: var(--macaw-deep);
+  border-radius: var(--radius-m);
+  background-color: var(--macaw);
+  background-clip: padding-box;
+  color: var(--snow);
+  cursor: pointer;
+  transition: filter var(--dur-fast);
+}
+
+@media (hover: hover) {
+  .tama-speech-bubble__audio:hover {
+    filter: brightness(1.05);
+  }
+}
+
+.tama-speech-bubble__audio:active {
+  transform: translateY(2px);
+  border-bottom-color: transparent;
+}
