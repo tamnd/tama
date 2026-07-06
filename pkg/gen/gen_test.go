@@ -39,7 +39,7 @@ func TestPingSendsAuthHeader(t *testing.T) {
 	}))
 	defer srv.Close()
 
-	models, err := newTestClient(testCfg(srv.URL+"/v1")).Ping(context.Background())
+	models, err := newTestClient(testCfg(srv.URL + "/v1")).Ping(context.Background())
 	if err != nil {
 		t.Fatal(err)
 	}
