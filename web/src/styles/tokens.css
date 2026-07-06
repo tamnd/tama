@@ -1,0 +1,66 @@
+/* Design tokens. Color role names follow the palette the whole UI is built
+   from; components only ever reference the CSS variables, never raw hex. */
+
+:root {
+  /* greens */
+  --feather: #58cc02;
+  --feather-dark: #58a700;
+  --mask: #89e219;
+  --seaweed: #d7ffb8;
+
+  /* blues */
+  --macaw: #1cb0f6;
+  --macaw-dark: #1899d6;
+  --humpback: #2b70c9;
+  --whale: #084c77;
+
+  /* reds and yellows */
+  --cardinal: #ff4b4b;
+  --cardinal-dark: #ea2b2b;
+  --blush: #ffdfe0;
+  --bee: #ffc800;
+  --bee-dark: #e5a600;
+  --fox: #ff9600;
+  --beetle: #ce82ff;
+  --beetle-dark: #a560e8;
+
+  /* greys */
+  --eel: #4b4b4b;
+  --wolf: #777777;
+  --hare: #afafaf;
+  --swan: #e5e5e5;
+  --polar: #f7f7f7;
+  --snow: #ffffff;
+
+  /* semantic */
+  --bg: var(--snow);
+  --card-border: var(--swan);
+  --text: var(--eel);
+  --text-secondary: var(--wolf);
+
+  /* shape */
+  --radius: 16px;
+  --radius-sm: 12px;
+  --depth: 4px;
+
+  /* motion */
+  --fast: 150ms;
+  --base: 300ms;
+
+  font-family: 'Nunito', -apple-system, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #131f24;
+    --card-border: #37464f;
+    --text: #f1f7fb;
+    --text-secondary: #52656d;
+    --polar: #202f36;
+    --snow: #131f24;
+    --swan: #37464f;
+    --eel: #f1f7fb;
+    --wolf: #dce6ec;
+    --hare: #52656d;
+  }
+}
