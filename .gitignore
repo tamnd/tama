@@ -1,0 +1,12 @@
+# binaries
+/tama
+/dist/
+
+# web
+web/node_modules/
+
+# local data
+*.db
+*.db-wal
+*.db-shm
+.DS_Store
