@@ -1,10 +1,18 @@
 import { useState, type CSSProperties, type ReactNode } from 'react'
 import { Button, type ButtonVariant } from '../components/Button'
 import { Card, CardHeader, Divider } from '../components/Card'
+import { ChoiceCard } from '../components/ChoiceCard'
 import { FeedbackBanner, type FeedbackKind } from '../components/FeedbackBanner'
+import { Field } from '../components/Field'
 import { CharacterGate, ChestNode, PathNode } from '../components/PathNode'
 import { DEMO_PATH, serpentineOffset } from '../components/PathNode.stories.data'
 import { ProgressBar } from '../components/ProgressBar'
+import { SpeechBubble } from '../components/SpeechBubble'
+import { TapToken } from '../components/TapToken'
+import { TextArea } from '../components/TextArea'
+import { TextInput } from '../components/TextInput'
+import { Toggle } from '../components/Toggle'
+import { WordBank } from '../components/WordBank'
 import './Gallery.css'
 
 // Eyeball QA for the design system: one section per component, every state
@@ -217,6 +225,106 @@ function ProgressBarSection() {
   )
 }
 
+function SpeechBubbleSection() {
+  return (
+    <Section
+      title="Speech bubble"
+      path="web/src/components/SpeechBubble.tsx"
+      note="The tail points left at the character slot; the grey circle stands in until the Tama poses land. The audio button is optional and presses down like a chip."
+    >
+      <div className="tama-gallery__grid">
+        <div className="tama-gallery__bubble-row">
+          <span className="tama-gallery__character" aria-hidden="true" />
+          <SpeechBubble onPlayAudio={() => {}}>Watashi wa mizu o nomimasu.</SpeechBubble>
+        </div>
+        <div className="tama-gallery__bubble-row">
+          <span className="tama-gallery__character" aria-hidden="true" />
+          <SpeechBubble>No audio button, just the prompt in eel at text-l.</SpeechBubble>
+        </div>
+      </div>
+    </Section>
+  )
+}
+
+const BANK_TOKENS = [
+  { id: 'w1', text: 'I' },
+  { id: 'w2', text: 'drink' },
+  { id: 'w3', text: 'water' },
+  { id: 'w4', text: 'the' },
+  { id: 'w5', text: 'milk' },
+  { id: 'w6', text: 'eat' },
+]
+
+function WordBankSection() {
+  const [answer, setAnswer] = useState<string[]>([])
+
+  return (
+    <Section
+      title="Tap tokens and word bank"
+      path="web/src/components/WordBank.tsx"
+      note="Tap chips or press 1-9 to build the answer, Backspace returns the last chip; moves animate with FLIP and snap under reduced motion. The frozen chips below show the rest and hollow states."
+    >
+      <div className="tama-gallery__grid">
+        <WordBank tokens={BANK_TOKENS} onChange={setAnswer} />
+        <code>serialized: {answer.join(' ') || '(empty)'}</code>
+      </div>
+      <h3 className="label-caps">Frozen states</h3>
+      <div className="tama-gallery__row">
+        <TapToken>rest</TapToken>
+        <TapToken hollow>hollow</TapToken>
+      </div>
+    </Section>
+  )
+}
+
+function FormsSection() {
+  return (
+    <Section
+      title="Inputs and forms"
+      path="web/src/components/Field.tsx"
+      note="Tab through for the focus treatment: the border swaps to macaw with no ring doubling. Field wires label, hint, and error to the control once."
+    >
+      <div className="tama-gallery__forms">
+        <Field label="Name" hint="As it appears on your profile">
+          <TextInput placeholder="Type your name" />
+        </Field>
+        <Field label="Email" error="That does not look like an email">
+          <TextInput defaultValue="tama@" />
+        </Field>
+        <Field label="Disabled">
+          <TextInput defaultValue="Cannot touch this" disabled />
+        </Field>
+        <Field label="Translation" hint="Grows from 2 to 6 rows as you type">
+          <TextArea placeholder="Type the translation" />
+        </Field>
+      </div>
+      <h3 className="label-caps">Choice cards</h3>
+      <div className="tama-gallery__row">
+        <ChoiceCard name="gallery-choice" value="agua" badge={1} defaultChecked>
+          el agua
+        </ChoiceCard>
+        <ChoiceCard name="gallery-choice" value="leche" badge={2}>
+          la leche
+        </ChoiceCard>
+        <ChoiceCard name="gallery-choice" value="pan" badge={3}>
+          el pan
+        </ChoiceCard>
+        <ChoiceCard type="checkbox">checkbox flavor</ChoiceCard>
+        <ChoiceCard disabled>disabled</ChoiceCard>
+      </div>
+      <h3 className="label-caps">Toggles</h3>
+      <div className="tama-gallery__row">
+        <Toggle>Off</Toggle>
+        <Toggle defaultChecked>On</Toggle>
+        <Toggle disabled>Disabled</Toggle>
+        <Toggle disabled defaultChecked>
+          Disabled on
+        </Toggle>
+      </div>
+    </Section>
+  )
+}
+
 const starIcon = (
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
     <path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z" />
@@ -342,6 +450,9 @@ export default function Gallery() {
       <PathNodeSection />
       <FeedbackBannerSection />
       <ProgressBarSection />
+      <SpeechBubbleSection />
+      <WordBankSection />
+      <FormsSection />
     </div>
   )
 }

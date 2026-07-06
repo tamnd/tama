@@ -139,6 +139,29 @@
   position: static;
 }
 
+/* Room for the bubble tail; the circle stands in for the character. */
+.tama-gallery__bubble-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.tama-gallery__character {
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border: 2px solid var(--swan);
+  border-radius: 50%;
+  background: var(--polar);
+}
+
+.tama-gallery__forms {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 400px;
+  margin-bottom: var(--space-5);
+}
+
 .tama-gallery__radius-chip {
   display: inline-flex;
   align-items: center;
