@@ -1,0 +1,104 @@
+/* The grading sheet. Fixed to the viewport bottom, slides up over 300ms;
+   the duration token zeroes out under reduced motion so the sheet just
+   appears. Full width on mobile, the inner grid aligns to the 600px lesson
+   column on desktop. */
+
+.tama-feedback {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 10;
+  animation: banner-in var(--dur-base) var(--ease-out);
+}
+
+.tama-feedback--correct {
+  background: var(--correct-fill);
+}
+
+.tama-feedback--incorrect {
+  background: var(--incorrect-fill);
+}
+
+.tama-feedback__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+  max-width: 600px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4) var(--space-5);
+}
+
+/* The 40px snow roundel carrying the check or the x. */
+.tama-feedback__roundel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  background: var(--snow);
+}
+
+.tama-feedback--correct .tama-feedback__roundel,
+.tama-feedback--correct .tama-feedback__title {
+  color: var(--feather-green);
+}
+
+.tama-feedback--incorrect .tama-feedback__roundel,
+.tama-feedback--incorrect .tama-feedback__title {
+  color: var(--cardinal);
+}
+
+.tama-feedback__title {
+  font-size: var(--text-l);
+}
+
+.tama-feedback__meaning {
+  margin-top: var(--space-1);
+  color: var(--eel);
+  font-size: var(--text-m);
+  user-select: text;
+}
+
+.tama-feedback__report {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-4);
+  padding: var(--space-1);
+  border: 0;
+  background: none;
+  color: var(--wolf);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+/* Mobile: the action stacks below the message, full width. */
+.tama-feedback__action {
+  grid-column: 1 / -1;
+}
+
+/* Desktop: the action sits to the right of the message. */
+@media (min-width: 700px) {
+  .tama-feedback__inner {
+    grid-template-columns: auto 1fr 180px;
+  }
+
+  .tama-feedback__action {
+    grid-column: 3;
+  }
+}
+
+@keyframes banner-in {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
