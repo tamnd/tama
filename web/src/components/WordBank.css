@@ -1,0 +1,26 @@
+/* Answer line above, bank below. Slots are dashed swan underlines the
+   chips land on; the bank keeps its shape because spent chips leave a
+   hollow placeholder behind. */
+
+.tama-word-bank__answer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+
+.tama-word-bank__slot {
+  display: inline-flex;
+  align-items: flex-end;
+  min-width: 44px;
+  min-height: 56px;
+  padding-bottom: var(--space-1);
+  border-bottom: 2px dashed var(--swan);
+}
+
+.tama-word-bank__bank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
