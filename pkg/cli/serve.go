@@ -11,26 +11,15 @@ import (
 )
 
 func newServeCmd() *cobra.Command {
-	var (
-		addr    string
-		dataDir string
-	)
-
 	cmd := &cobra.Command{
 		Use:   "serve",
 		Short: "Start the tama server",
 		Long: "Starts the HTTP server with the embedded web UI. State goes to a single\n" +
 			"SQLite file under the data directory, course packs next to it.",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			cfg, err := config.Load()
+			cfg, err := config.Load(cmd.Flags())
 			if err != nil {
 				return err
-			}
-			if cmd.Flags().Changed("addr") {
-				cfg.Addr = addr
-			}
-			if cmd.Flags().Changed("data") {
-				cfg.DataDir = dataDir
 			}
 
 			st, err := store.Open(cfg.DBPath())
@@ -45,7 +34,7 @@ func newServeCmd() *cobra.Command {
 		},
 	}
 
-	cmd.Flags().StringVar(&addr, "addr", ":4321", "listen address")
-	cmd.Flags().StringVar(&dataDir, "data", "", "data directory (default ~/.tama)")
+	cmd.Flags().String("addr", ":4321", "listen address")
+	cmd.Flags().String("data", "", "data directory (default ~/.tama)")
 	return cmd
 }
