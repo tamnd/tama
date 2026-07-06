@@ -1,0 +1,74 @@
+/* The selectable answer card: secondary-button construction on a 12px
+   radius. Selection swaps the whole treatment to macaw over a 10% macaw
+   fill, so state is border plus text plus fill, never color alone. */
+
+.tama-choice {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: var(--space-4);
+  border: 2px solid var(--swan);
+  border-bottom: 4px solid var(--swan-deep);
+  border-radius: var(--radius-m);
+  background-color: var(--snow);
+  background-clip: padding-box;
+  color: var(--eel);
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter var(--dur-fast);
+  user-select: none;
+}
+
+@media (hover: hover) {
+  .tama-choice:hover:not(.tama-choice--disabled) {
+    filter: brightness(1.05);
+  }
+}
+
+.tama-choice:active:not(.tama-choice--disabled) {
+  transform: translateY(2px);
+  border-bottom-color: transparent;
+}
+
+.tama-choice:has(.tama-choice__input:checked) {
+  border-color: var(--macaw);
+  border-bottom-color: var(--macaw-deep);
+  background-color: color-mix(in srgb, var(--macaw) 10%, var(--snow));
+  color: var(--macaw);
+}
+
+/* The hidden input owns focus; the card wears the ring. */
+.tama-choice:has(.tama-choice__input:focus-visible) {
+  outline: 2px solid var(--macaw);
+  outline-offset: 2px;
+}
+
+.tama-choice--disabled {
+  background-color: var(--polar);
+  color: var(--hare);
+  cursor: default;
+}
+
+/* Clear the corner the badge lives in. */
+.tama-choice--badged {
+  padding-right: calc(var(--space-2) * 2 + 22px);
+}
+
+/* The keyboard shortcut digit, bottom-right. */
+.tama-choice__badge {
+  position: absolute;
+  right: var(--space-2);
+  bottom: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--swan);
+  border-radius: var(--radius-s);
+  color: var(--wolf);
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
