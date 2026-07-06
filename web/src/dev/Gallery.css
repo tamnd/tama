@@ -112,6 +112,33 @@
   gap: var(--space-4);
 }
 
+/* Room above the rows so the START and JUMP HERE? bubbles fit. */
+.tama-gallery__path-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-8);
+  padding-top: 64px;
+  margin-bottom: var(--space-4);
+}
+
+.tama-gallery__serpentine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  padding-top: 56px;
+}
+
+.tama-gallery__serpentine-row {
+  transform: translateX(var(--node-offset, 0px));
+}
+
+/* The review copies of the fixed bottom sheet sit in the page flow. */
+.tama-feedback.tama-gallery__banner-inline {
+  position: static;
+}
+
 .tama-gallery__radius-chip {
   display: inline-flex;
   align-items: center;

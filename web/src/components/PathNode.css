@@ -1,0 +1,272 @@
+/* Path entries: the circular lesson node, the reward chest, and the unit
+   character gate. Same construction as Button, flat face over a darker
+   bottom border, but with the chunkier 8px depth edge. The face paints the
+   padding box only, so the rings drawn by pseudo elements wrap the visible
+   circle exactly. */
+
+.tama-path-node {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 78px; /* 70px face plus the 8px edge */
+  padding: 0;
+  border: 0 solid transparent;
+  border-bottom-width: 8px;
+  border-radius: 50%;
+  background-clip: padding-box;
+  cursor: pointer;
+  transition: filter var(--dur-fast);
+}
+
+.tama-path-node__icon {
+  display: inline-flex;
+}
+
+.tama-path-node--active {
+  background-color: var(--feather-green);
+  border-bottom-color: var(--feather-green-deep);
+  color: var(--snow);
+}
+
+/* The gold ring: 4px bee, offset 4px. Drawn as a pseudo element so the
+   outline stays free for :focus-visible. */
+.tama-path-node--active::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border: 4px solid var(--bee);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.tama-path-node--completed {
+  background-color: var(--bee);
+  border-bottom-color: var(--bee-deep);
+  color: var(--snow);
+}
+
+.tama-path-node--locked {
+  background-color: var(--swan);
+  border-bottom-color: var(--swan-deep);
+  color: var(--hare);
+  cursor: default;
+}
+
+.tama-path-node--legendary {
+  background-color: var(--beetle);
+  border-bottom-color: var(--beetle-deep);
+  color: var(--snow);
+}
+
+/* Faint beetle glow ring. */
+.tama-path-node--legendary::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border: 4px solid color-mix(in srgb, var(--beetle) 35%, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* The segmented progress ring replaces the solid gold ring. */
+.tama-path-node--ringed::after {
+  content: none;
+}
+
+.tama-path-node__ring {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  width: 94px;
+  max-width: none; /* the reset caps svg at the button's width */
+  height: 94px;
+  pointer-events: none;
+}
+
+.tama-path-node__ring-seg {
+  stroke: var(--swan);
+}
+
+.tama-path-node__ring-seg--passed {
+  stroke: var(--feather-green);
+}
+
+@media (hover: hover) {
+  .tama-path-node--active:hover,
+  .tama-path-node--completed:hover,
+  .tama-path-node--legendary:hover {
+    filter: brightness(1.05);
+  }
+}
+
+/* The press, same trick as Button: the face travels down into its own depth
+   and nothing around it shifts. */
+.tama-path-node--active:active,
+.tama-path-node--completed:active {
+  transform: translateY(8px);
+  border-bottom-color: transparent;
+}
+
+/* Tooltip bubble floating above the node: START in bee, JUMP HERE? in
+   macaw. The base transform recenters it; the bob animation repeats the
+   translateX so reduced motion falls back to the centered rest pose. */
+.tama-path-node__bubble {
+  position: absolute;
+  bottom: calc(100% + 14px);
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 1;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface);
+  border: 2px solid var(--swan);
+  border-radius: var(--radius-m);
+  font-size: var(--text-s);
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  animation: node-bob 1s ease-in-out infinite alternate;
+}
+
+.tama-path-node__bubble--start {
+  color: var(--bee);
+}
+
+.tama-path-node__bubble--jump {
+  color: var(--macaw);
+}
+
+/* Border-built tail: a swan triangle with a smaller surface one on top. */
+.tama-path-node__bubble::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -8px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid var(--swan);
+}
+
+.tama-path-node__bubble::after {
+  content: '';
+  position: absolute;
+  top: calc(100% - 2px);
+  left: 50%;
+  margin-left: -5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid var(--color-surface);
+}
+
+@keyframes node-bob {
+  from {
+    transform: translate(-50%, 0);
+  }
+
+  to {
+    transform: translate(-50%, -6px);
+  }
+}
+
+/* The reward chest: 48px art in a node-sized touch target. Openable chests
+   shimmer at idle; opened ones repaint the icon's tones flat grey. */
+.tama-path-chest {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.tama-path-chest__art {
+  display: inline-flex;
+  width: 48px;
+  height: 48px;
+}
+
+.tama-path-chest__art svg {
+  width: 100%;
+  height: 100%;
+}
+
+.tama-path-chest:not(.tama-path-chest--opened) .tama-path-chest__art {
+  animation: chest-shimmer 2s ease-in-out infinite;
+}
+
+.tama-path-chest--opened {
+  cursor: default;
+}
+
+.tama-path-chest--opened .tama-path-chest__art {
+  --chest-body: var(--swan);
+  --chest-band: var(--hare);
+}
+
+@keyframes chest-shimmer {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.25);
+  }
+}
+
+/* The character gate: an oval 90x70 face at unit boundaries. */
+.tama-path-gate {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 78px; /* 70px face plus the 8px edge */
+  padding: 0;
+  border: 0 solid transparent;
+  border-bottom-width: 8px;
+  border-radius: 50%;
+  background-clip: padding-box;
+}
+
+.tama-path-gate--locked {
+  background-color: var(--swan);
+  border-bottom-color: var(--swan-deep);
+  color: var(--hare);
+  cursor: default;
+}
+
+.tama-path-gate--passed {
+  background-color: var(--feather-green);
+  border-bottom-color: var(--feather-green-deep);
+  color: var(--snow);
+  cursor: pointer;
+  transition: filter var(--dur-fast);
+}
+
+@media (hover: hover) {
+  .tama-path-gate--passed:hover {
+    filter: brightness(1.05);
+  }
+}
+
+.tama-path-gate--passed:active {
+  transform: translateY(8px);
+  border-bottom-color: transparent;
+}
+
+.tama-path-gate__mascot {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+}
+
+.tama-path-gate__mascot svg {
+  width: 100%;
+  height: 100%;
+}

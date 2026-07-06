@@ -1,6 +1,10 @@
 import { useState, type CSSProperties, type ReactNode } from 'react'
 import { Button, type ButtonVariant } from '../components/Button'
 import { Card, CardHeader, Divider } from '../components/Card'
+import { FeedbackBanner, type FeedbackKind } from '../components/FeedbackBanner'
+import { CharacterGate, ChestNode, PathNode } from '../components/PathNode'
+import { DEMO_PATH, serpentineOffset } from '../components/PathNode.stories.data'
+import { ProgressBar } from '../components/ProgressBar'
 import './Gallery.css'
 
 // Eyeball QA for the design system: one section per component, every state
@@ -89,6 +93,127 @@ function Section({
       {note && <p className="tama-gallery__note">{note}</p>}
       {children}
     </section>
+  )
+}
+
+function PathNodeSection() {
+  return (
+    <Section
+      title="Path nodes"
+      path="web/src/components/PathNode.tsx"
+      note="Active bobs its START bubble inside the gold ring; the ringed node counts levels passed. Locked ignores the press. The chest shimmers until opened, and the gate carries a silhouette until the Tama poses land."
+    >
+      <div className="tama-gallery__path-row">
+        <PathNode state="active" label="Active node" />
+        <PathNode state="completed" label="Completed node" />
+        <PathNode state="locked" label="Locked node" />
+        <PathNode state="legendary" label="Legendary node" />
+        <PathNode
+          state="active"
+          label="Node with progress ring"
+          progress={{ passed: 3, total: 5 }}
+        />
+        <PathNode state="locked" label="Jump target" jumpHere />
+      </div>
+      <div className="tama-gallery__path-row">
+        <ChestNode label="Openable chest" />
+        <ChestNode label="Opened chest" opened />
+        <CharacterGate label="Locked gate" />
+        <CharacterGate label="Passed gate" passed />
+      </div>
+      <h3 className="label-caps">Serpentine rhythm</h3>
+      <div className="tama-gallery__serpentine">
+        {DEMO_PATH.map((entry, i) => (
+          <div
+            key={i}
+            className="tama-gallery__serpentine-row"
+            style={{ '--node-offset': `${serpentineOffset(i)}px` } as CSSProperties}
+          >
+            {entry.kind === 'node' && (
+              <PathNode state={entry.state} label={entry.label} progress={entry.progress} />
+            )}
+            {entry.kind === 'chest' && <ChestNode label={entry.label} opened={entry.opened} />}
+            {entry.kind === 'gate' && <CharacterGate label={entry.label} passed={entry.passed} />}
+          </div>
+        ))}
+      </div>
+    </Section>
+  )
+}
+
+const LONG_MEANING =
+  'Excuse me, could you bring us two glasses of water and the check, please? ' +
+  'We are in a bit of a hurry because our train leaves in twenty minutes.'
+
+function FeedbackBannerSection() {
+  const [live, setLive] = useState<FeedbackKind | null>(null)
+
+  return (
+    <Section
+      title="Feedback banners"
+      path="web/src/components/FeedbackBanner.tsx"
+      note="The two banners below are pinned in place for review. The buttons mount the real fixed sheet: it slides up from the bottom and Enter dismisses it."
+    >
+      <div className="tama-gallery__grid">
+        <FeedbackBanner
+          kind="correct"
+          title="Nicely done!"
+          meaning="Watashi wa mizu o nomimasu."
+          className="tama-gallery__banner-inline"
+        />
+        <FeedbackBanner
+          kind="incorrect"
+          title="Correct solution:"
+          meaning={LONG_MEANING}
+          className="tama-gallery__banner-inline"
+        />
+      </div>
+      <div className="tama-gallery__row">
+        <Button variant="primary" size="small" onClick={() => setLive('correct')}>
+          Show correct
+        </Button>
+        <Button variant="danger" size="small" onClick={() => setLive('incorrect')}>
+          Show incorrect
+        </Button>
+      </div>
+      {live && (
+        <FeedbackBanner
+          kind={live}
+          title={live === 'correct' ? 'Nicely done!' : 'Correct solution:'}
+          meaning="Watashi wa mizu o nomimasu."
+          onAction={() => setLive(null)}
+        />
+      )}
+    </Section>
+  )
+}
+
+function ProgressBarSection() {
+  const max = 10
+  const flameAt = 5
+  const [value, setValue] = useState(3)
+
+  return (
+    <Section
+      title="Progress bar"
+      path="web/src/components/ProgressBar.tsx"
+      note="Play increments the bar: each step animates the fill over 300ms and runs one shimmer sweep; the combo flame pops in at 5."
+    >
+      <div className="tama-gallery__grid">
+        <ProgressBar value={value} max={max} showFlame={value >= flameAt} label="Demo progress" />
+      </div>
+      <div className="tama-gallery__row">
+        <Button variant="blue" size="small" onClick={() => setValue((v) => Math.min(max, v + 1))}>
+          Play
+        </Button>
+        <Button variant="secondary" size="small" onClick={() => setValue(0)}>
+          Reset
+        </Button>
+        <code>
+          {value} / {max}
+        </code>
+      </div>
+    </Section>
   )
 }
 
@@ -213,6 +338,10 @@ export default function Gallery() {
           ))}
         </div>
       </Section>
+
+      <PathNodeSection />
+      <FeedbackBannerSection />
+      <ProgressBarSection />
     </div>
   )
 }
