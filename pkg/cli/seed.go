@@ -19,7 +19,7 @@ func newSeedCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "seed",
 		Short: "Seed demo data",
-		Long: "Seeds the demo user (demo / demo1234), a ready es-en course with a tiny\n" +
+		Long: "Seeds the demo user (demo / demo1234), a ready es-from-en course with a tiny\n" +
 			"handcrafted pack, a progress row, an xp event, and a 3-day streak, so\n" +
 			"the app is explorable right after boot. Safe to run twice.",
 		Example: "  tama seed --demo",
@@ -36,7 +36,7 @@ func newSeedCmd() *cobra.Command {
 			if err := seedDemo(cmd.Context(), db); err != nil {
 				return err
 			}
-			fmt.Fprintln(cmd.OutOrStdout(), "seeded demo user and es-en course (login demo / demo1234)")
+			fmt.Fprintln(cmd.OutOrStdout(), "seeded demo user and es-from-en course (login demo / demo1234)")
 			return nil
 		},
 	}
@@ -62,7 +62,7 @@ func seedDemo(ctx context.Context, db *store.DB) error {
 	}
 
 	if err := db.UpsertCourse(ctx, store.Course{
-		ID: "es-en", BaseLang: "en", TargetLang: "es",
+		ID: "es-from-en", BaseLang: "en", TargetLang: "es",
 		Title: "Spanish from English", Status: "ready",
 	}); err != nil {
 		return err
@@ -73,14 +73,14 @@ func seedDemo(ctx context.Context, db *store.DB) error {
 		return err
 	}
 	if err := db.UpsertCourse(ctx, store.Course{
-		ID: "es-en", BaseLang: "en", TargetLang: "es",
+		ID: "es-from-en", BaseLang: "en", TargetLang: "es",
 		Title: "Spanish from English", Status: "ready", PackID: &packID,
 	}); err != nil {
 		return err
 	}
 
 	if err := db.UpsertProgress(ctx, store.Progress{
-		UserID: user.ID, CourseID: "es-en", NodeID: "u1-l1", Crowns: 1,
+		UserID: user.ID, CourseID: "es-from-en", NodeID: "u1-l1", Crowns: 1,
 	}); err != nil {
 		return err
 	}
@@ -90,7 +90,7 @@ func seedDemo(ctx context.Context, db *store.DB) error {
 		return err
 	}
 	if total == 0 {
-		if err := db.InsertXPEvent(ctx, user.ID, "es-en", 10, "lesson"); err != nil {
+		if err := db.InsertXPEvent(ctx, user.ID, "es-from-en", 10, "lesson"); err != nil {
 			return err
 		}
 	}
@@ -104,7 +104,7 @@ func seedDemo(ctx context.Context, db *store.DB) error {
 // seedDemoPack compresses the checked-in fixture into course_packs, reusing
 // the existing row on re-runs.
 func seedDemoPack(ctx context.Context, db *store.DB) (int64, error) {
-	if p, err := db.LatestPack(ctx, "es-en"); err == nil {
+	if p, err := db.LatestPack(ctx, "es-from-en"); err == nil {
 		return p.ID, nil
 	} else if !errors.Is(err, store.ErrNotFound) {
 		return 0, err
@@ -120,7 +120,7 @@ func seedDemoPack(ctx context.Context, db *store.DB) (int64, error) {
 	sum := sha256.Sum256(raw)
 
 	return db.InsertPack(ctx, store.CoursePack{
-		CourseID: "es-en", Version: 1, Format: 1,
+		CourseID: "es-from-en", Version: 1, Format: 1,
 		Content: compressed, SHA256: hex.EncodeToString(sum[:]),
 		GeneratedBy: "fixture",
 	})

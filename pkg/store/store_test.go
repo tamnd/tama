@@ -174,15 +174,15 @@ func TestSessionLifecycle(t *testing.T) {
 func TestCoursesAndPacks(t *testing.T) {
 	db := openTest(t)
 	ctx := context.Background()
-	mustCreateCourse(t, db, "es-en")
+	mustCreateCourse(t, db, "es-from-en")
 
-	c, err := db.CourseByID(ctx, "es-en")
+	c, err := db.CourseByID(ctx, "es-from-en")
 	if err != nil || c.Status != "ready" || c.PackID != nil {
 		t.Errorf("CourseByID = %+v, %v", c, err)
 	}
 
 	// Upsert refreshes mutable fields without duplicating the row.
-	if err := db.UpsertCourse(ctx, Course{ID: "es-en", BaseLang: "en", TargetLang: "es", Title: "Spanish 2", Status: "ready"}); err != nil {
+	if err := db.UpsertCourse(ctx, Course{ID: "es-from-en", BaseLang: "en", TargetLang: "es", Title: "Spanish 2", Status: "ready"}); err != nil {
 		t.Fatalf("second UpsertCourse: %v", err)
 	}
 	all, err := db.ListCourses(ctx)
@@ -190,23 +190,23 @@ func TestCoursesAndPacks(t *testing.T) {
 		t.Errorf("ListCourses = %+v, %v", all, err)
 	}
 
-	if _, err := db.LatestPack(ctx, "es-en"); !errors.Is(err, ErrNotFound) {
+	if _, err := db.LatestPack(ctx, "es-from-en"); !errors.Is(err, ErrNotFound) {
 		t.Errorf("LatestPack on packless course = %v, want ErrNotFound", err)
 	}
 	for v := 1; v <= 2; v++ {
 		_, err := db.InsertPack(ctx, CoursePack{
-			CourseID: "es-en", Version: v, Format: 1,
+			CourseID: "es-from-en", Version: v, Format: 1,
 			Content: []byte{0x28, 0xb5, 0x2f, 0xfd, byte(v)}, SHA256: "deadbeef",
 		})
 		if err != nil {
 			t.Fatalf("InsertPack v%d: %v", v, err)
 		}
 	}
-	p, err := db.LatestPack(ctx, "es-en")
+	p, err := db.LatestPack(ctx, "es-from-en")
 	if err != nil || p.Version != 2 {
 		t.Errorf("LatestPack = %+v, %v, want version 2", p, err)
 	}
-	if _, err := db.InsertPack(ctx, CoursePack{CourseID: "es-en", Version: 2, Format: 1, Content: []byte{0}, SHA256: "x"}); err == nil {
+	if _, err := db.InsertPack(ctx, CoursePack{CourseID: "es-from-en", Version: 2, Format: 1, Content: []byte{0}, SHA256: "x"}); err == nil {
 		t.Error("duplicate (course, version) pack inserted twice")
 	}
 }
@@ -215,9 +215,9 @@ func TestUpsertProgress(t *testing.T) {
 	db := openTest(t)
 	ctx := context.Background()
 	u := mustCreateUser(t, db, "mochi")
-	mustCreateCourse(t, db, "es-en")
+	mustCreateCourse(t, db, "es-from-en")
 
-	p := Progress{UserID: u.ID, CourseID: "es-en", NodeID: "u1-l1", Crowns: 1}
+	p := Progress{UserID: u.ID, CourseID: "es-from-en", NodeID: "u1-l1", Crowns: 1}
 	if err := db.UpsertProgress(ctx, p); err != nil {
 		t.Fatalf("UpsertProgress: %v", err)
 	}
@@ -228,7 +228,7 @@ func TestUpsertProgress(t *testing.T) {
 		t.Fatalf("UpsertProgress update: %v", err)
 	}
 
-	rows, err := db.ProgressForCourse(ctx, u.ID, "es-en")
+	rows, err := db.ProgressForCourse(ctx, u.ID, "es-from-en")
 	if err != nil || len(rows) != 1 {
 		t.Fatalf("ProgressForCourse = %+v, %v", rows, err)
 	}
@@ -241,17 +241,17 @@ func TestXPLedger(t *testing.T) {
 	db := openTest(t)
 	ctx := context.Background()
 	u := mustCreateUser(t, db, "mochi")
-	mustCreateCourse(t, db, "es-en")
+	mustCreateCourse(t, db, "es-from-en")
 
 	freeze(t, time.Date(2026, 7, 1, 8, 0, 0, 0, time.UTC))
-	if err := db.InsertXPEvent(ctx, u.ID, "es-en", 10, "lesson"); err != nil {
+	if err := db.InsertXPEvent(ctx, u.ID, "es-from-en", 10, "lesson"); err != nil {
 		t.Fatalf("InsertXPEvent: %v", err)
 	}
 	freeze(t, time.Date(2026, 7, 2, 8, 0, 0, 0, time.UTC))
 	if err := db.InsertXPEvent(ctx, u.ID, "", 5, "bonus"); err != nil {
 		t.Fatalf("InsertXPEvent bonus: %v", err)
 	}
-	if err := db.InsertXPEvent(ctx, u.ID, "es-en", 1, "cheating"); err == nil {
+	if err := db.InsertXPEvent(ctx, u.ID, "es-from-en", 1, "cheating"); err == nil {
 		t.Error("xp reason outside the CHECK list accepted")
 	}
 
@@ -306,12 +306,12 @@ func TestDueReviewItems(t *testing.T) {
 	db := openTest(t)
 	ctx := context.Background()
 	u := mustCreateUser(t, db, "mochi")
-	mustCreateCourse(t, db, "es-en")
+	mustCreateCourse(t, db, "es-from-en")
 
 	now := time.Date(2026, 7, 6, 12, 0, 0, 0, time.UTC).UnixMilli()
 	for i, due := range []int64{now - 2000, now - 1000, now, now + 60_000} {
 		item := ReviewItem{
-			UserID: u.ID, CourseID: "es-en", ItemID: string(rune('a' + i)),
+			UserID: u.ID, CourseID: "es-from-en", ItemID: string(rune('a' + i)),
 			Stability: 1.5, Difficulty: 5.0, Due: due,
 		}
 		if err := db.UpsertReviewItem(ctx, item); err != nil {
@@ -319,7 +319,7 @@ func TestDueReviewItems(t *testing.T) {
 		}
 	}
 
-	due, err := db.DueReviewItems(ctx, u.ID, "es-en", now, 10)
+	due, err := db.DueReviewItems(ctx, u.ID, "es-from-en", now, 10)
 	if err != nil {
 		t.Fatalf("DueReviewItems: %v", err)
 	}
@@ -327,16 +327,16 @@ func TestDueReviewItems(t *testing.T) {
 		t.Errorf("due queue = %+v, want a,b,c most overdue first", due)
 	}
 
-	limited, err := db.DueReviewItems(ctx, u.ID, "es-en", now, 2)
+	limited, err := db.DueReviewItems(ctx, u.ID, "es-from-en", now, 2)
 	if err != nil || len(limited) != 2 {
 		t.Errorf("limited due queue = %+v, %v, want 2 items", limited, err)
 	}
 
 	// Rescheduling an item moves it out of the due window.
-	if err := db.UpsertReviewItem(ctx, ReviewItem{UserID: u.ID, CourseID: "es-en", ItemID: "a", Due: now + 120_000, LastReview: &now, Lapses: 1}); err != nil {
+	if err := db.UpsertReviewItem(ctx, ReviewItem{UserID: u.ID, CourseID: "es-from-en", ItemID: "a", Due: now + 120_000, LastReview: &now, Lapses: 1}); err != nil {
 		t.Fatalf("reschedule: %v", err)
 	}
-	due, _ = db.DueReviewItems(ctx, u.ID, "es-en", now, 10)
+	due, _ = db.DueReviewItems(ctx, u.ID, "es-from-en", now, 10)
 	if len(due) != 2 {
 		t.Errorf("due after reschedule = %+v, want 2", due)
 	}
