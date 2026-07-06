@@ -1,0 +1,15 @@
+.tama-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.tama-field__hint {
+  color: var(--wolf);
+  font-size: var(--text-s);
+}
+
+.tama-field__error {
+  color: var(--cardinal);
+  font-size: var(--text-s);
+}
