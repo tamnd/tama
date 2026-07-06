@@ -1,0 +1,33 @@
+/* The text field: a polar well with a swan ring. Focus recolors the ring
+   to macaw and drops the global outline so the ring never doubles; the
+   border swap is the replacement indicator. */
+
+.tama-text-input {
+  width: 100%;
+  padding: var(--space-4);
+  border: 2px solid var(--swan);
+  border-radius: var(--radius-m);
+  background: var(--polar);
+  color: var(--eel);
+  font-size: var(--text-m);
+  font-weight: 700;
+}
+
+.tama-text-input::placeholder {
+  color: var(--wolf);
+  opacity: 1;
+}
+
+.tama-text-input:focus {
+  border-color: var(--macaw);
+  outline: none;
+}
+
+.tama-text-input[aria-invalid='true'] {
+  border-color: var(--cardinal);
+}
+
+.tama-text-input:disabled {
+  color: var(--hare);
+  cursor: default;
+}

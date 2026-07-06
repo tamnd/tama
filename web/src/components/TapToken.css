@@ -1,0 +1,43 @@
+/* The tap-token chip: same construction as the secondary button but on the
+   44px word-bank scale, with a 2px depth edge. */
+
+.tama-tap-token {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 var(--space-3);
+  border: 2px solid var(--swan);
+  border-bottom: 4px solid var(--swan-deep);
+  border-radius: var(--radius-m);
+  background-color: var(--snow);
+  background-clip: padding-box;
+  color: var(--eel);
+  font-size: var(--text-m);
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter var(--dur-fast);
+}
+
+@media (hover: hover) {
+  .tama-tap-token:hover:not(:disabled) {
+    filter: brightness(1.05);
+  }
+}
+
+/* The press: the face travels into its own 2px depth, height stays put. */
+.tama-tap-token:active:not(:disabled) {
+  transform: translateY(2px);
+  border-bottom-color: transparent;
+}
+
+/* The spent chip goes hollow: a flat polar slab with the word ghosted in
+   swan, no edge, holding the exact box its live twin had. */
+.tama-tap-token--hollow {
+  background-color: var(--polar);
+  background-clip: border-box;
+  border-color: transparent;
+  color: var(--swan);
+  cursor: default;
+}
