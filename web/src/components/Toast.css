@@ -1,0 +1,71 @@
+/* Top-center notification stack. The viewport is a fixed flex column so
+   up to three toasts stack downward; it ignores the pointer everywhere
+   the toasts are not. */
+
+.tama-toast-viewport {
+  position: fixed;
+  top: var(--space-4);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  z-index: 100;
+  pointer-events: none;
+}
+
+.tama-toast {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  max-width: min(400px, calc(100vw - 2 * var(--space-4)));
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: 2px solid var(--swan);
+  border-radius: var(--radius-m);
+  color: var(--color-text);
+  font-size: var(--text-s);
+  font-weight: 700;
+  pointer-events: auto;
+  animation: pop-in var(--dur-base) var(--ease-bounce);
+}
+
+.tama-toast__icon {
+  display: inline-flex;
+  flex: none;
+  width: 20px;
+  height: 20px;
+}
+
+.tama-toast__icon > * {
+  width: 100%;
+  height: 100%;
+}
+
+.tama-toast__message {
+  min-width: 0;
+}
+
+/* A quiet 24px square that still catches the eye and the pointer. */
+.tama-toast__dismiss {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-s);
+  background: none;
+  color: var(--wolf);
+  cursor: pointer;
+  transition: filter var(--dur-fast);
+}
+
+@media (hover: hover) {
+  .tama-toast__dismiss:hover {
+    background: var(--polar);
+  }
+}
