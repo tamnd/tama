@@ -45,6 +45,13 @@ func newRoot() *cobra.Command {
 		SilenceUsage:  true,
 		SilenceErrors: true,
 	}
-	root.AddCommand(newServeCmd())
+	root.AddCommand(
+		newServeCmd(),
+		newUserCmd(),
+		newDBCmd(),
+		newSeedCmd(),
+		newGenCmd(),
+		newPackCmd(),
+	)
 	return root
 }

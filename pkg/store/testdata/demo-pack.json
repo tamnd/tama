@@ -1,0 +1,39 @@
+{
+  "format": 1,
+  "course": "es-en",
+  "version": 1,
+  "title": "Spanish from English",
+  "units": [
+    {
+      "id": "u1",
+      "title": "Basics",
+      "lessons": [
+        {
+          "id": "u1-l1",
+          "title": "First words",
+          "exercises": [
+            {
+              "id": "u1-l1-e1",
+              "type": "translate",
+              "prompt": "the cat",
+              "answer": "el gato"
+            },
+            {
+              "id": "u1-l1-e2",
+              "type": "translate",
+              "prompt": "the water",
+              "answer": "el agua"
+            },
+            {
+              "id": "u1-l1-e3",
+              "type": "select",
+              "prompt": "hello",
+              "choices": ["hola", "gato", "agua"],
+              "answer": "hola"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
