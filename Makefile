@@ -15,7 +15,7 @@ dev:
 
 test:
 	go test -race ./...
-	cd web && npm run typecheck
+	cd web && npm run typecheck && npm test
 
 lint:
 	gofmt -s -l . && go vet ./...
