@@ -1,0 +1,54 @@
+/* Native dialog: the browser centers it in the top layer and traps focus.
+   Padding lives on the inner wrapper so a click on the dialog element
+   itself can only mean the backdrop. */
+
+.tama-modal {
+  /* the global reset zeroes margins; auto restores native centering */
+  margin: auto;
+  width: min(400px, calc(100vw - 2 * var(--space-4)));
+  padding: 0;
+  border: 2px solid var(--swan);
+  border-radius: var(--radius-l);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.tama-modal[open] {
+  animation: pop-in var(--dur-base) var(--ease-bounce);
+}
+
+/* Eel scrim at 60%. Opacity on the backdrop box itself, so the color
+   stays a plain token. */
+.tama-modal::backdrop {
+  background: var(--eel);
+  opacity: 0.6;
+}
+
+.tama-modal__inner {
+  padding: var(--space-5);
+}
+
+.tama-modal__title {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-xl);
+  font-weight: 800;
+  line-height: var(--leading-tight);
+}
+
+.tama-modal__content {
+  font-size: var(--text-m);
+}
+
+/* Buttons arrive primary-first for tab order; column-reverse hangs the
+   primary at the bottom where the thumb expects it. */
+.tama-modal__footer {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+}
+
+.tama-modal__footer .tama-button {
+  display: flex;
+  width: 100%;
+}
