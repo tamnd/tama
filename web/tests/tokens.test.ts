@@ -53,4 +53,10 @@ describe('tokens.css', () => {
     const darkBlock = css.slice(css.indexOf('html[data-theme='))
     expect(darkBlock).toContain(hex)
   })
+
+  it('pins the league metal tones', () => {
+    expect(css).toContain('--league-bronze: #CD7F32')
+    expect(css).toContain('--league-silver: #C0C0C0')
+    expect(css).toContain('--league-gold: var(--bee)')
+  })
 })

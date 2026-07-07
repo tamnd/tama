@@ -1,0 +1,7 @@
+/* The league shield only needs its metal tone: the icon inherits
+   currentColor from here. */
+
+.tama-league {
+  display: inline-flex;
+  color: var(--league-tone);
+}
