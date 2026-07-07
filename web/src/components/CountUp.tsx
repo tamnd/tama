@@ -31,9 +31,11 @@ export function CountUp({ value, duration = 600 }: CountUpProps) {
     }
     const from = shownRef.current
     if (from === value) return
+    // performance.now() on both ends: rAF timestamps don't share an origin
+    // with it everywhere.
     const start = performance.now()
-    let frame = requestAnimationFrame(function tick(now: number) {
-      const t = Math.min(1, (now - start) / duration)
+    let frame = requestAnimationFrame(function tick() {
+      const t = Math.min(1, Math.max(0, (performance.now() - start) / duration))
       const eased = 1 - Math.pow(1 - t, 3)
       const next = Math.round(from + (value - from) * eased)
       shownRef.current = next
