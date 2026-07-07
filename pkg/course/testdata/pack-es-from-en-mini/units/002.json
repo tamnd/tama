@@ -1,0 +1,63 @@
+{
+  "unit": {
+    "id": "u2",
+    "sectionIndex": 1,
+    "index": 2,
+    "theme": "Greet people",
+    "title": "Unit 2",
+    "color": "green",
+    "guidebookId": "gb_u2",
+    "levelCount": 2
+  },
+  "levels": [
+    {"id": "n_u2_1", "unitId": "u2", "index": 1, "kind": "hard", "lessonCount": 1, "payload": {"xp": 20}},
+    {"id": "n_u2_2", "unitId": "u2", "index": 2, "kind": "checkpoint", "lessonCount": 1, "payload": {}}
+  ],
+  "lessons": [
+    {"id": "ls_u2_1", "levelId": "n_u2_1", "index": 1, "xpReward": 20,
+     "exerciseIds": ["ex_u2_01", "ex_u2_02", "ex_u2_03", "ex_u2_04", "ex_u2_05", "ex_u2_06", "ex_u2_07", "ex_u2_08", "ex_u2_09", "ex_u2_10", "ex_u2_11", "ex_u2_12"]},
+    {"id": "ls_u2_2", "levelId": "n_u2_2", "index": 1, "xpReward": 10,
+     "exerciseIds": ["ex_u2_12", "ex_u2_10", "ex_u2_08", "ex_u2_06", "ex_u2_04", "ex_u2_02", "ex_u2_11", "ex_u2_09", "ex_u2_07", "ex_u2_05", "ex_u2_03", "ex_u2_01"]}
+  ],
+  "exercises": [
+    {"id": "ex_u2_01", "type": "translate", "payload": {"prompt": "Hello", "answer": "Hola"}},
+    {"id": "ex_u2_02", "type": "translate", "payload": {"prompt": "Good morning", "answer": "Buenos días"}},
+    {"id": "ex_u2_03", "type": "translate", "payload": {"prompt": "Good night", "answer": "Buenas noches"}},
+    {"id": "ex_u2_04", "type": "translate", "payload": {"prompt": "How are you?", "answer": "¿Cómo estás?"}},
+    {"id": "ex_u2_05", "type": "translate", "payload": {"prompt": "I am fine, thanks.", "answer": "Estoy bien, gracias."}},
+    {"id": "ex_u2_06", "type": "choice", "payload": {"prompt": "Which one means goodbye?", "options": ["Adiós", "Hola", "Gracias"], "correctIndex": 0}},
+    {"id": "ex_u2_07", "type": "translate", "payload": {"prompt": "See you tomorrow", "answer": "Hasta mañana"}},
+    {"id": "ex_u2_08", "type": "translate", "payload": {"prompt": "Nice to meet you", "answer": "Mucho gusto"}},
+    {"id": "ex_u2_09", "type": "translate", "payload": {"prompt": "¿Cómo te llamas?", "answer": "What is your name?"}},
+    {"id": "ex_u2_10", "type": "translate", "payload": {"prompt": "My name is Ana.", "answer": "Me llamo Ana."}},
+    {"id": "ex_u2_11", "type": "match", "payload": {"pairs": [["Hola", "Hello"], ["Adiós", "Goodbye"], ["Gracias", "Thank you"]]}},
+    {"id": "ex_u2_12", "type": "translate", "payload": {"prompt": "Good afternoon", "answer": "Buenas tardes"}}
+  ],
+  "guidebook": {
+    "id": "gb_u2",
+    "unitId": "u2",
+    "title": "Greet people",
+    "keyPhrases": [
+      {"targetText": "Hola", "baseText": "Hello", "audioRef": "sha256:476e8b59e0e8ac3cd25a9079614188944feffc85a4942a1fd5009e6f052966d9"},
+      {"targetText": "Buenos días", "baseText": "Good morning", "audioRef": "sha256:476e8b59e0e8ac3cd25a9079614188944feffc85a4942a1fd5009e6f052966d9"},
+      {"targetText": "¿Cómo estás?", "baseText": "How are you?", "audioRef": "sha256:476e8b59e0e8ac3cd25a9079614188944feffc85a4942a1fd5009e6f052966d9"}
+    ],
+    "tipSections": [
+      {
+        "heading": "Tú and usted",
+        "bodyMarkdown": "Spanish has two words for *you*: **tú** with friends and family, **usted** when you want to be polite or formal.",
+        "examples": [
+          {"target": "¿Cómo estás?", "base": "How are you? (friendly)"},
+          {"target": "¿Cómo está usted?", "base": "How are you? (formal)"}
+        ]
+      },
+      {
+        "heading": "Greetings around the clock",
+        "bodyMarkdown": "Pick the greeting by the time of day.\n\n| Spanish | When |\n| --- | --- |\n| Buenos días | morning |\n| Buenas tardes | afternoon |\n| Buenas noches | evening and night |",
+        "examples": [
+          {"target": "Buenas tardes", "base": "Good afternoon"}
+        ]
+      }
+    ]
+  }
+}

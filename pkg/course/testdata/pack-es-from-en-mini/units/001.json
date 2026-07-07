@@ -1,0 +1,117 @@
+{
+  "unit": {
+    "id": "u1",
+    "sectionIndex": 1,
+    "index": 1,
+    "theme": "Order food and drink",
+    "title": "Unit 1",
+    "color": "green",
+    "guidebookId": "gb_u1",
+    "levelCount": 4
+  },
+  "levels": [
+    {"id": "n_u1_1", "unitId": "u1", "index": 1, "kind": "lesson", "lessonCount": 4, "hardLessonCount": 1, "payload": {"xp": 10}},
+    {"id": "n_u1_2", "unitId": "u1", "index": 2, "kind": "chest", "lessonCount": 0, "payload": {"gems": 15}},
+    {"id": "n_u1_3", "unitId": "u1", "index": 3, "kind": "story", "lessonCount": 0, "payload": {"storyId": "st_u1_1"}},
+    {"id": "n_u1_4", "unitId": "u1", "index": 4, "kind": "checkpoint", "lessonCount": 1, "payload": {}}
+  ],
+  "lessons": [
+    {"id": "ls_u1_1", "levelId": "n_u1_1", "index": 1, "xpReward": 10,
+     "exerciseIds": ["ex_u1_01", "ex_u1_02", "ex_u1_03", "ex_u1_04", "ex_u1_05", "ex_u1_06", "ex_u1_07", "ex_u1_08", "ex_u1_09", "ex_u1_10", "ex_u1_11", "ex_u1_12"]},
+    {"id": "ls_u1_2", "levelId": "n_u1_1", "index": 2, "xpReward": 10,
+     "exerciseIds": ["ex_u1_13", "ex_u1_14", "ex_u1_15", "ex_u1_16", "ex_u1_17", "ex_u1_18", "ex_u1_19", "ex_u1_20", "ex_u1_21", "ex_u1_22", "ex_u1_23", "ex_u1_24"]},
+    {"id": "ls_u1_3", "levelId": "n_u1_1", "index": 3, "xpReward": 10,
+     "exerciseIds": ["ex_u1_01", "ex_u1_03", "ex_u1_05", "ex_u1_07", "ex_u1_09", "ex_u1_11", "ex_u1_13", "ex_u1_15", "ex_u1_17", "ex_u1_19", "ex_u1_21", "ex_u1_23"]},
+    {"id": "ls_u1_4", "levelId": "n_u1_1", "index": 4, "xpReward": 10,
+     "exerciseIds": ["ex_u1_02", "ex_u1_04", "ex_u1_06", "ex_u1_08", "ex_u1_10", "ex_u1_12", "ex_u1_14", "ex_u1_16", "ex_u1_18", "ex_u1_20", "ex_u1_22", "ex_u1_24"]},
+    {"id": "ls_u1_5", "levelId": "n_u1_4", "index": 1, "xpReward": 10,
+     "exerciseIds": ["ex_u1_01", "ex_u1_05", "ex_u1_08", "ex_u1_12", "ex_u1_15", "ex_u1_17", "ex_u1_18", "ex_u1_20", "ex_u1_21", "ex_u1_22", "ex_u1_23", "ex_u1_24"]}
+  ],
+  "exercises": [
+    {"id": "ex_u1_01", "type": "translate", "payload": {"prompt": "the coffee", "answer": "el café"}},
+    {"id": "ex_u1_02", "type": "translate", "payload": {"prompt": "the tea", "answer": "el té"}},
+    {"id": "ex_u1_03", "type": "translate", "payload": {"prompt": "the water", "answer": "el agua"}},
+    {"id": "ex_u1_04", "type": "translate", "payload": {"prompt": "the milk", "answer": "la leche"}},
+    {"id": "ex_u1_05", "type": "translate", "payload": {"prompt": "A coffee, please.", "answer": "Un café, por favor."}},
+    {"id": "ex_u1_06", "type": "translate", "payload": {"prompt": "el pan", "answer": "the bread"}},
+    {"id": "ex_u1_07", "type": "translate", "payload": {"prompt": "la cuenta", "answer": "the check"}},
+    {"id": "ex_u1_08", "type": "choice", "payload": {"prompt": "Which one means milk?", "options": ["la leche", "el pan", "el vino"], "correctIndex": 0}},
+    {"id": "ex_u1_09", "type": "translate", "payload": {"prompt": "I want a tea.", "answer": "Quiero un té."}},
+    {"id": "ex_u1_10", "type": "translate", "payload": {"prompt": "the wine", "answer": "el vino"}},
+    {"id": "ex_u1_11", "type": "translate", "payload": {"prompt": "the beer", "answer": "la cerveza"}},
+    {"id": "ex_u1_12", "type": "choice", "payload": {"prompt": "Which one means water?", "options": ["el agua", "la leche", "el café"], "correctIndex": 0}},
+    {"id": "ex_u1_13", "type": "translate", "payload": {"prompt": "a sandwich", "answer": "un sándwich"}},
+    {"id": "ex_u1_14", "type": "translate", "payload": {"prompt": "the juice", "answer": "el jugo"}},
+    {"id": "ex_u1_15", "type": "translate", "payload": {"prompt": "The check, please.", "answer": "La cuenta, por favor."}},
+    {"id": "ex_u1_16", "type": "translate", "payload": {"prompt": "el azúcar", "answer": "the sugar"}},
+    {"id": "ex_u1_17", "type": "match", "payload": {"pairs": [["el café", "the coffee"], ["el té", "the tea"], ["la leche", "the milk"]]}},
+    {"id": "ex_u1_18", "type": "translate", "payload": {"prompt": "I want water, please.", "answer": "Quiero agua, por favor."}},
+    {"id": "ex_u1_19", "type": "translate", "payload": {"prompt": "the restaurant", "answer": "el restaurante"}},
+    {"id": "ex_u1_20", "type": "choice", "payload": {"prompt": "Which one means bread?", "options": ["el pan", "el vino", "el té"], "correctIndex": 0}},
+    {"id": "ex_u1_21", "type": "translate", "payload": {"prompt": "a coffee with milk", "answer": "un café con leche"}},
+    {"id": "ex_u1_22", "type": "translate", "payload": {"prompt": "Yes, please.", "answer": "Sí, por favor."}},
+    {"id": "ex_u1_23", "type": "translate", "payload": {"prompt": "No, thanks.", "answer": "No, gracias."}},
+    {"id": "ex_u1_24", "type": "translate", "payload": {"prompt": "el menú", "answer": "the menu"}}
+  ],
+  "guidebook": {
+    "id": "gb_u1",
+    "unitId": "u1",
+    "title": "Order food and drink",
+    "keyPhrases": [
+      {"targetText": "Un café, por favor", "baseText": "A coffee, please", "audioRef": "sha256:476e8b59e0e8ac3cd25a9079614188944feffc85a4942a1fd5009e6f052966d9"},
+      {"targetText": "La cuenta, por favor", "baseText": "The check, please", "audioRef": "sha256:476e8b59e0e8ac3cd25a9079614188944feffc85a4942a1fd5009e6f052966d9"},
+      {"targetText": "Quiero un té", "baseText": "I want a tea", "audioRef": "sha256:476e8b59e0e8ac3cd25a9079614188944feffc85a4942a1fd5009e6f052966d9"}
+    ],
+    "tipSections": [
+      {
+        "heading": "Gendered nouns",
+        "bodyMarkdown": "Spanish nouns are masculine or feminine. *El* goes before masculine nouns and *la* before feminine ones.\n\n| Spanish | English |\n| --- | --- |\n| el café | the coffee |\n| la leche | the milk |",
+        "examples": [
+          {"target": "el café", "base": "the coffee"},
+          {"target": "la leche", "base": "the milk"}
+        ]
+      },
+      {
+        "heading": "Ordering politely",
+        "bodyMarkdown": "Add **por favor** to the end of an order and you are already polite enough for any café in Madrid.",
+        "examples": [
+          {"target": "Un té, por favor", "base": "A tea, please"}
+        ]
+      }
+    ]
+  },
+  "stories": [
+    {
+      "id": "st_u1_1",
+      "unitId": "u1",
+      "title": "El café de Tama",
+      "titleBase": "Tama's café",
+      "cefr": "A1",
+      "xpReward": 20,
+      "characters": [
+        {"id": "tama", "name": "Tama", "avatarRef": "cast/tama.svg", "voice": "f1"},
+        {"id": "mesero", "name": "El mesero", "avatarRef": "cast/mesero.svg", "voice": "m1"},
+        {"id": "ana", "name": "Ana", "avatarRef": "cast/ana.svg", "voice": "f2"}
+      ],
+      "lines": [
+        {"speakerId": "", "targetText": "Tama entra en un café.", "baseText": "Tama walks into a café.", "audioRef": "sha256:476e8b59e0e8ac3cd25a9079614188944feffc85a4942a1fd5009e6f052966d9"},
+        {"speakerId": "mesero", "targetText": "¡Hola! ¿Qué quieres?", "baseText": "Hi! What do you want?", "audioRef": "sha256:358c6dcef4442790decb0a5c03fb320154f9d1dd5b4618e301f9e6661a413cb5"},
+        {"speakerId": "tama", "targetText": "Un café con leche, por favor.", "baseText": "A coffee with milk, please.", "audioRef": "sha256:7e28a155ec8ae58f8483a9f7dc8d8190173ded11c01b5f31e1c6f8ee629916c6"},
+        {"speakerId": "mesero", "targetText": "¿Algo más?", "baseText": "Anything else?", "audioRef": "sha256:358c6dcef4442790decb0a5c03fb320154f9d1dd5b4618e301f9e6661a413cb5"},
+        {"speakerId": "tama", "targetText": "Sí, un sándwich.", "baseText": "Yes, a sandwich.", "audioRef": "sha256:7e28a155ec8ae58f8483a9f7dc8d8190173ded11c01b5f31e1c6f8ee629916c6"},
+        {"speakerId": "", "targetText": "Ana entra en el café.", "baseText": "Ana walks into the café.", "audioRef": "sha256:476e8b59e0e8ac3cd25a9079614188944feffc85a4942a1fd5009e6f052966d9"},
+        {"speakerId": "ana", "targetText": "¡Hola, Tama! ¿Qué tal?", "baseText": "Hi, Tama! How are you?", "audioRef": "sha256:e1882bb0e86ccd4f6e81ac879c35e619512c25b636850d30ea75256ed55d21c6"},
+        {"speakerId": "tama", "targetText": "Bien, gracias. ¿Quieres un café?", "baseText": "Fine, thanks. Do you want a coffee?", "audioRef": "sha256:7e28a155ec8ae58f8483a9f7dc8d8190173ded11c01b5f31e1c6f8ee629916c6"},
+        {"speakerId": "ana", "targetText": "No, gracias. Quiero un té.", "baseText": "No, thanks. I want a tea.", "audioRef": "sha256:e1882bb0e86ccd4f6e81ac879c35e619512c25b636850d30ea75256ed55d21c6"},
+        {"speakerId": "mesero", "targetText": "Un té para la señora.", "baseText": "A tea for the lady.", "audioRef": "sha256:358c6dcef4442790decb0a5c03fb320154f9d1dd5b4618e301f9e6661a413cb5"},
+        {"speakerId": "tama", "targetText": "La cuenta, por favor.", "baseText": "The check, please.", "audioRef": "sha256:7e28a155ec8ae58f8483a9f7dc8d8190173ded11c01b5f31e1c6f8ee629916c6"},
+        {"speakerId": "", "targetText": "Tama paga y los dos beben juntos.", "baseText": "Tama pays and the two drink together.", "audioRef": "sha256:476e8b59e0e8ac3cd25a9079614188944feffc85a4942a1fd5009e6f052966d9"}
+      ],
+      "exercises": [
+        {"afterLine": 4, "exercise": {"type": "story_choice", "prompt": {"text": "What does Tama order?"}, "options": ["A coffee with milk", "A tea", "A water"], "correctIndex": 0}},
+        {"afterLine": 8, "exercise": {"type": "story_choice", "prompt": {"text": "What does Tama offer Ana?"}, "options": ["A coffee", "A sandwich", "The check"], "correctIndex": 0}},
+        {"afterLine": 12, "exercise": {"type": "story_choice", "prompt": {"text": "Who pays the check?"}, "options": ["Tama", "Ana", "El mesero"], "correctIndex": 0}}
+      ]
+    }
+  ]
+}

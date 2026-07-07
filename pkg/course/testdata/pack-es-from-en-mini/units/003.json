@@ -1,0 +1,63 @@
+{
+  "unit": {
+    "id": "u3",
+    "sectionIndex": 2,
+    "index": 1,
+    "theme": "Talk about your family",
+    "title": "Unit 3",
+    "color": "blue",
+    "guidebookId": "gb_u3",
+    "levelCount": 2
+  },
+  "levels": [
+    {"id": "n_u3_1", "unitId": "u3", "index": 1, "kind": "review", "lessonCount": 1, "payload": {}},
+    {"id": "n_u3_2", "unitId": "u3", "index": 2, "kind": "checkpoint", "lessonCount": 1, "payload": {}}
+  ],
+  "lessons": [
+    {"id": "ls_u3_1", "levelId": "n_u3_1", "index": 1, "xpReward": 10,
+     "exerciseIds": ["ex_u3_01", "ex_u3_02", "ex_u3_03", "ex_u3_04", "ex_u3_05", "ex_u3_06", "ex_u3_07", "ex_u3_08", "ex_u3_09", "ex_u3_10", "ex_u3_11", "ex_u3_12"]},
+    {"id": "ls_u3_2", "levelId": "n_u3_2", "index": 1, "xpReward": 10,
+     "exerciseIds": ["ex_u3_12", "ex_u3_11", "ex_u3_10", "ex_u3_09", "ex_u3_08", "ex_u3_07", "ex_u3_06", "ex_u3_05", "ex_u3_04", "ex_u3_03", "ex_u3_02", "ex_u3_01"]}
+  ],
+  "exercises": [
+    {"id": "ex_u3_01", "type": "translate", "payload": {"prompt": "the mother", "answer": "la madre"}},
+    {"id": "ex_u3_02", "type": "translate", "payload": {"prompt": "the father", "answer": "el padre"}},
+    {"id": "ex_u3_03", "type": "translate", "payload": {"prompt": "the brother", "answer": "el hermano"}},
+    {"id": "ex_u3_04", "type": "translate", "payload": {"prompt": "the sister", "answer": "la hermana"}},
+    {"id": "ex_u3_05", "type": "translate", "payload": {"prompt": "My mother is a doctor.", "answer": "Mi madre es doctora."}},
+    {"id": "ex_u3_06", "type": "translate", "payload": {"prompt": "mi familia", "answer": "my family"}},
+    {"id": "ex_u3_07", "type": "choice", "payload": {"prompt": "Which one means sister?", "options": ["la hermana", "el hermano", "la madre"], "correctIndex": 0}},
+    {"id": "ex_u3_08", "type": "translate", "payload": {"prompt": "I have two brothers.", "answer": "Tengo dos hermanos."}},
+    {"id": "ex_u3_09", "type": "translate", "payload": {"prompt": "the grandmother", "answer": "la abuela"}},
+    {"id": "ex_u3_10", "type": "translate", "payload": {"prompt": "el abuelo", "answer": "the grandfather"}},
+    {"id": "ex_u3_11", "type": "match", "payload": {"pairs": [["la madre", "the mother"], ["el padre", "the father"], ["el hijo", "the son"]]}},
+    {"id": "ex_u3_12", "type": "translate", "payload": {"prompt": "My family is big.", "answer": "Mi familia es grande."}}
+  ],
+  "guidebook": {
+    "id": "gb_u3",
+    "unitId": "u3",
+    "title": "Talk about your family",
+    "keyPhrases": [
+      {"targetText": "mi madre", "baseText": "my mother", "audioRef": "sha256:476e8b59e0e8ac3cd25a9079614188944feffc85a4942a1fd5009e6f052966d9"},
+      {"targetText": "mi padre", "baseText": "my father", "audioRef": "sha256:476e8b59e0e8ac3cd25a9079614188944feffc85a4942a1fd5009e6f052966d9"},
+      {"targetText": "mi hermano", "baseText": "my brother", "audioRef": "sha256:476e8b59e0e8ac3cd25a9079614188944feffc85a4942a1fd5009e6f052966d9"}
+    ],
+    "tipSections": [
+      {
+        "heading": "Mi and mis",
+        "bodyMarkdown": "Use **mi** for one thing and **mis** for several, no matter who owns them.",
+        "examples": [
+          {"target": "mi hermano", "base": "my brother"},
+          {"target": "mis hermanos", "base": "my brothers"}
+        ]
+      },
+      {
+        "heading": "Family words come in pairs",
+        "bodyMarkdown": "Most family words have a masculine and a feminine form that differ only in the last vowel.\n\n| Masculine | Feminine |\n| --- | --- |\n| el hermano | la hermana |\n| el abuelo | la abuela |\n| el hijo | la hija |",
+        "examples": [
+          {"target": "la hija", "base": "the daughter"}
+        ]
+      }
+    ]
+  }
+}
