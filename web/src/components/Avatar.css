@@ -1,0 +1,45 @@
+/* Circular avatar, 2px swan border, three fixed sizes. The fallback face
+   is the per-user brand color set by the component; the initial sits on it
+   in snow. */
+
+.tama-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  overflow: hidden;
+  border: 2px solid var(--swan);
+  border-radius: 50%;
+  background-color: var(--avatar-bg, var(--polar));
+}
+
+.tama-avatar--32 {
+  width: 32px;
+  height: 32px;
+  font-size: var(--text-s);
+}
+
+.tama-avatar--48 {
+  width: 48px;
+  height: 48px;
+  font-size: var(--text-l);
+}
+
+.tama-avatar--96 {
+  width: 96px;
+  height: 96px;
+  font-size: var(--text-2xl);
+}
+
+.tama-avatar__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tama-avatar__initial {
+  color: var(--snow);
+  font-weight: 800;
+  line-height: 1;
+  user-select: none;
+}

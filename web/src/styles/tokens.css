@@ -38,6 +38,11 @@
   --correct-fill: #D7FFB8;
   --incorrect-fill: #FFDFE0;
 
+  /* league metal tones; M7 extends the ladder past gold */
+  --league-bronze: #CD7F32;
+  --league-silver: #C0C0C0;
+  --league-gold: var(--bee);
+
   /* semantic aliases: components read intent, not palette */
   --color-primary: var(--feather-green);
   --color-correct: var(--feather-green);

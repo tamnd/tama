@@ -1,0 +1,8 @@
+/* Celebration numbers count up at the 900 weight; tabular figures keep the
+   sweep from wobbling the layout. Chips that want a lighter number override
+   the weight in their own block. */
+
+.tama-countup {
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
