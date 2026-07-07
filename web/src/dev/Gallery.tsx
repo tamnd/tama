@@ -1,16 +1,46 @@
 import { useRef, useState, type CSSProperties, type ReactNode } from 'react'
+import { Avatar } from '@/components/Avatar'
 import { Button, type ButtonVariant } from '@/components/Button'
 import { Card, CardHeader, Divider } from '@/components/Card'
 import { ChoiceCard } from '@/components/ChoiceCard'
+import { CountUp } from '@/components/CountUp'
 import { FeedbackBanner, type FeedbackKind } from '@/components/FeedbackBanner'
 import { Field } from '@/components/Field'
+import { HeartsRow } from '@/components/HeartsRow'
+import { BellIcon } from '@/components/icons/bell'
+import { BookIcon } from '@/components/icons/book'
+import { CheckIcon } from '@/components/icons/check'
+import { ChestIcon } from '@/components/icons/chest'
+import { CrownIcon } from '@/components/icons/crown'
+import { DumbbellIcon } from '@/components/icons/dumbbell'
+import { FlagReportIcon } from '@/components/icons/flag-report'
+import { GearIcon } from '@/components/icons/gear'
+import { GemIcon } from '@/components/icons/gem'
+import { HeartIcon } from '@/components/icons/heart'
+import { HomePathIcon } from '@/components/icons/home-path'
+import type { IconSize } from '@/components/icons/icon'
+import { LightningIcon } from '@/components/icons/lightning'
+import { LockIcon } from '@/components/icons/lock'
+import { MicIcon } from '@/components/icons/mic'
+import { MoreDotsIcon } from '@/components/icons/more-dots'
+import { ProfileIcon } from '@/components/icons/profile'
+import { QuestScrollIcon } from '@/components/icons/quest-scroll'
+import { ShieldIcon } from '@/components/icons/shield'
+import { ShopBagIcon } from '@/components/icons/shop-bag'
+import { SpeakerIcon } from '@/components/icons/speaker'
+import { SpeakerSlowIcon } from '@/components/icons/speaker-slow'
+import { StarIcon } from '@/components/icons/star'
 import { StreakFlameIcon } from '@/components/icons/streak-flame'
+import { TrophyIcon } from '@/components/icons/trophy'
+import { XIcon } from '@/components/icons/x'
+import { LeagueBadge, LEAGUE_TONES, type LeagueTone } from '@/components/LeagueBadge'
 import { Modal } from '@/components/Modal'
 import { CharacterGate, ChestNode, PathNode } from '@/components/PathNode'
 import { DEMO_PATH, serpentineOffset } from '@/components/PathNode.stories.data'
 import { Popover } from '@/components/Popover'
 import { ProgressBar } from '@/components/ProgressBar'
 import { SpeechBubble } from '@/components/SpeechBubble'
+import { CrownChip, StatChip } from '@/components/StatChip'
 import { TapToken } from '@/components/TapToken'
 import { TextArea } from '@/components/TextArea'
 import { TextInput } from '@/components/TextInput'
@@ -329,6 +359,149 @@ function FormsSection() {
   )
 }
 
+const ICON_SIZES: IconSize[] = [16, 20, 24, 32]
+
+// The full set, gamification tones first, then the single-tone chrome.
+const ICON_SET: [string, (size: IconSize) => ReactNode][] = [
+  ['streak-flame', (s) => <StreakFlameIcon size={s} />],
+  ['gem', (s) => <GemIcon size={s} />],
+  ['heart', (s) => <HeartIcon size={s} />],
+  ['lightning', (s) => <LightningIcon size={s} />],
+  ['crown', (s) => <CrownIcon size={s} />],
+  ['chest', (s) => <ChestIcon size={s} />],
+  ['chest open', (s) => <ChestIcon size={s} open />],
+  ['trophy', (s) => <TrophyIcon size={s} />],
+  ['star', (s) => <StarIcon size={s} />],
+  ['check', (s) => <CheckIcon size={s} />],
+  ['x', (s) => <XIcon size={s} />],
+  ['lock', (s) => <LockIcon size={s} />],
+  ['book', (s) => <BookIcon size={s} />],
+  ['dumbbell', (s) => <DumbbellIcon size={s} />],
+  ['shield', (s) => <ShieldIcon size={s} />],
+  ['quest-scroll', (s) => <QuestScrollIcon size={s} />],
+  ['bell', (s) => <BellIcon size={s} />],
+  ['gear', (s) => <GearIcon size={s} />],
+  ['flag-report', (s) => <FlagReportIcon size={s} />],
+  ['speaker', (s) => <SpeakerIcon size={s} />],
+  ['speaker-slow', (s) => <SpeakerSlowIcon size={s} />],
+  ['mic', (s) => <MicIcon size={s} />],
+  ['home-path', (s) => <HomePathIcon size={s} />],
+  ['profile', (s) => <ProfileIcon size={s} />],
+  ['shop-bag', (s) => <ShopBagIcon size={s} />],
+  ['more-dots', (s) => <MoreDotsIcon size={s} />],
+]
+
+function IconPanel({ variant }: { variant: 'light' | 'dark' }) {
+  return (
+    <div className={`tama-gallery__icon-panel tama-gallery__icon-panel--${variant}`}>
+      {ICON_SET.map(([name, draw]) => (
+        <div key={name} className="tama-gallery__icon-cell">
+          <span className="tama-gallery__icon-sizes">
+            {ICON_SIZES.map((size) => (
+              <span key={size}>{draw(size)}</span>
+            ))}
+          </span>
+          <code>{name}</code>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function IconsSection() {
+  return (
+    <Section
+      title="Icons"
+      path="web/src/components/icons/"
+      note="Every icon at 16, 20, 24, and 32 on a light and a dark swatch. Gamification icons keep their canonical fills on both; chrome icons inherit the swatch's currentColor."
+    >
+      <IconPanel variant="light" />
+      <IconPanel variant="dark" />
+    </Section>
+  )
+}
+
+function StatSection() {
+  const [streak, setStreak] = useState(12)
+  const [gems, setGems] = useState(505)
+  const [xp, setXp] = useState(120)
+  const [hearts, setHearts] = useState(5)
+  const [replay, setReplay] = useState(0)
+
+  return (
+    <Section
+      title="Stat displays"
+      path="web/src/components/StatChip.tsx"
+      note="Counters sweep up through CountUp and announce themselves on polite live labels. Lose a heart to watch it pop and hollow; the unlimited row is the Super state."
+    >
+      <h3 className="label-caps">Stat chips</h3>
+      <div className="tama-gallery__row">
+        <StatChip kind="streak" value={streak} />
+        <StatChip kind="streak" value={0} />
+        <StatChip kind="gems" value={gems} />
+        <StatChip kind="xp" value={xp} />
+        <Button
+          variant="secondary"
+          size="small"
+          onClick={() => {
+            setStreak((v) => v + 1)
+            setGems((v) => v + 30)
+            setXp((v) => v + 15)
+          }}
+        >
+          Earn a day
+        </Button>
+      </div>
+      <h3 className="label-caps">Hearts</h3>
+      <div className="tama-gallery__row">
+        <HeartsRow remaining={hearts} />
+        <Button
+          variant="danger"
+          size="small"
+          onClick={() => setHearts((v) => Math.max(0, v - 1))}
+        >
+          Lose a heart
+        </Button>
+        <Button variant="secondary" size="small" onClick={() => setHearts(5)}>
+          Refill
+        </Button>
+      </div>
+      <div className="tama-gallery__row">
+        <HeartsRow remaining={3} />
+        <HeartsRow remaining={0} />
+        <HeartsRow remaining={5} unlimited />
+      </div>
+      <h3 className="label-caps">Avatars</h3>
+      <div className="tama-gallery__row">
+        <Avatar name="Tama" size={32} />
+        <Avatar name="Tama" size={48} />
+        <Avatar name="Tama" size={96} />
+        <Avatar name="Duo" size={48} />
+        <Avatar name="Lily" size={48} />
+        <Avatar name="Oscar" size={48} />
+        <Avatar name="Zari" size={48} />
+      </div>
+      <h3 className="label-caps">League badges and crown levels</h3>
+      <div className="tama-gallery__row">
+        {(Object.keys(LEAGUE_TONES) as LeagueTone[]).map((tone) => (
+          <LeagueBadge key={tone} tone={tone} />
+        ))}
+        <CrownChip level={1} />
+        <CrownChip level={12} />
+      </div>
+      <h3 className="label-caps">Count-up</h3>
+      <div className="tama-gallery__row">
+        <span className="tama-gallery__countup">
+          <CountUp key={replay} value={340} />
+        </span>
+        <Button variant="blue" size="small" onClick={() => setReplay((n) => n + 1)}>
+          Replay
+        </Button>
+      </div>
+    </Section>
+  )
+}
+
 // The app will mount one ToastProvider at its root; the gallery scopes one
 // to this section so the demo stays self-contained.
 function OverlaySection() {
@@ -570,6 +743,8 @@ export default function Gallery() {
       <WordBankSection />
       <FormsSection />
       <OverlaySection />
+      <IconsSection />
+      <StatSection />
     </div>
   )
 }
