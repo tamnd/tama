@@ -35,11 +35,7 @@ function labelFor(kind: StatKind, value: number): string {
 // screen readers get the full phrase through the live label.
 export function StatChip({ kind, value }: StatChipProps) {
   const zero = kind === 'streak' && value === 0
-  const className = [
-    'tama-statchip',
-    `tama-statchip--${kind}`,
-    zero ? 'tama-statchip--zero' : '',
-  ]
+  const className = ['tama-statchip', `tama-statchip--${kind}`, zero ? 'tama-statchip--zero' : '']
     .filter(Boolean)
     .join(' ')
 

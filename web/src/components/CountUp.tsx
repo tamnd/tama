@@ -10,7 +10,10 @@ type CountUpProps = {
 // People who asked for less motion get the final number straight away,
 // whether the ask came from the OS or the in-app class.
 function prefersReducedMotion(): boolean {
-  if (typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  ) {
     return true
   }
   return document.documentElement.classList.contains('reduce-motion')

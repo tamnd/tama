@@ -15,10 +15,14 @@ describe('Avatar', () => {
 
   it('picks the same brand color for the same name every time', () => {
     const first = render(<Avatar name="tama" />)
-    const a = (first.container.firstElementChild as HTMLElement).style.getPropertyValue('--avatar-bg')
+    const a = (first.container.firstElementChild as HTMLElement).style.getPropertyValue(
+      '--avatar-bg',
+    )
     cleanup()
     const second = render(<Avatar name="tama" />)
-    const b = (second.container.firstElementChild as HTMLElement).style.getPropertyValue('--avatar-bg')
+    const b = (second.container.firstElementChild as HTMLElement).style.getPropertyValue(
+      '--avatar-bg',
+    )
     expect(a).toBe(b)
     expect(a).toMatch(/^var\(--[\w-]+\)$/)
   })

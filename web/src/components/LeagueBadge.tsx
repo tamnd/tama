@@ -22,10 +22,7 @@ type LeagueBadgeProps = {
 // so the badge only has to set the color.
 export function LeagueBadge({ tone, size = 32 }: LeagueBadgeProps) {
   return (
-    <span
-      className="tama-league"
-      style={{ '--league-tone': LEAGUE_TONES[tone] } as CSSProperties}
-    >
+    <span className="tama-league" style={{ '--league-tone': LEAGUE_TONES[tone] } as CSSProperties}>
       <ShieldIcon size={size} />
       <span className="visually-hidden">{`${tone} league`}</span>
     </span>

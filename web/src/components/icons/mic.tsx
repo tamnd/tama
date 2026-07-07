@@ -11,12 +11,7 @@ export function MicIcon({ size = 24 }: IconProps) {
         strokeWidth="2.5"
         strokeLinecap="round"
       />
-      <path
-        d="M12 18v3M8.5 21.5h7"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-      />
+      <path d="M12 18v3M8.5 21.5h7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
     </svg>
   )
 }

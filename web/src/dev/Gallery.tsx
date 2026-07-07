@@ -455,11 +455,7 @@ function StatSection() {
       <h3 className="label-caps">Hearts</h3>
       <div className="tama-gallery__row">
         <HeartsRow remaining={hearts} />
-        <Button
-          variant="danger"
-          size="small"
-          onClick={() => setHearts((v) => Math.max(0, v - 1))}
-        >
+        <Button variant="danger" size="small" onClick={() => setHearts((v) => Math.max(0, v - 1))}>
           Lose a heart
         </Button>
         <Button variant="secondary" size="small" onClick={() => setHearts(5)}>
