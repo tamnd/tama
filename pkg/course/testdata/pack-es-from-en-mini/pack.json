@@ -1,0 +1,13 @@
+{
+  "formatVersion": 1,
+  "courseId": "es-from-en",
+  "version": "1.0.0",
+  "generatorVersion": "fixture, written by hand",
+  "modelId": "none",
+  "createdAt": "2026-07-01T09:00:00Z",
+  "sectionIndex": [
+    {"index": 1, "title": "Rookie", "cefr": "A1", "units": 2},
+    {"index": 2, "title": "Explorer", "cefr": "A1", "units": 1}
+  ],
+  "contentHash": "sha256:f9d7a34a1e5a5824880574a99c94ee160dbb7527adebd9a5416b9736755668e2"
+}

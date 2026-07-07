@@ -1,0 +1,32 @@
+{
+  "entries": [
+    {
+      "hash": "sha256:7e28a155ec8ae58f8483a9f7dc8d8190173ded11c01b5f31e1c6f8ee629916c6",
+      "durationMs": 400,
+      "voice": "f1",
+      "kind": "character",
+      "textHash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "hash": "sha256:358c6dcef4442790decb0a5c03fb320154f9d1dd5b4618e301f9e6661a413cb5",
+      "durationMs": 500,
+      "voice": "m1",
+      "kind": "character",
+      "textHash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "hash": "sha256:e1882bb0e86ccd4f6e81ac879c35e619512c25b636850d30ea75256ed55d21c6",
+      "durationMs": 450,
+      "voice": "f2",
+      "kind": "character",
+      "textHash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "hash": "sha256:476e8b59e0e8ac3cd25a9079614188944feffc85a4942a1fd5009e6f052966d9",
+      "durationMs": 600,
+      "voice": "n1",
+      "kind": "normal",
+      "textHash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}
