@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/tama.svg" />
     <title>tama</title>
+    <script>
+      // Theme before first paint: the stored choice wins, then the OS
+      // preference, so dark mode never flashes light. The storage listener
+      // keeps other documents (the gallery's shell iframes) in step when
+      // the toggle writes a new choice.
+      ;(function () {
+        function apply() {
+          var stored = null
+          try {
+            stored = localStorage.getItem('tama-theme')
+          } catch (e) {
+            // No storage access; fall back to the OS preference.
+          }
+          var dark =
+            stored === 'dark' ||
+            (stored !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+          document.documentElement.dataset.theme = dark ? 'dark' : 'light'
+        }
+        apply()
+        window.addEventListener('storage', apply)
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

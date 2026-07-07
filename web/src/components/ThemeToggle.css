@@ -1,0 +1,30 @@
+/* Light / dark / system switch: a small pill group in the rail's MORE area
+   and the gallery header. The active option wears the macaw selection
+   treatment; casing comes from text-transform, never the source strings. */
+
+.tama-theme-toggle {
+  display: inline-flex;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  background: var(--polar);
+  border-radius: var(--radius-pill);
+}
+
+.tama-theme-toggle__option {
+  padding: var(--space-1) var(--space-2);
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+  background: none;
+  color: var(--wolf);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.tama-theme-toggle__option--on {
+  background: var(--snow);
+  border-color: var(--macaw);
+  color: var(--macaw);
+}
