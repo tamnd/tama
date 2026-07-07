@@ -1,0 +1,273 @@
+/* The app frame. Three regions on desktop: fixed 256px rail, the 592px
+   main column, the 368px sidebar, main and sidebar centered as one 1056px
+   unit with a 48px gutter. The media query values are px literals because
+   media queries cannot read custom properties; 700 is documented in
+   styles/tokens.css and duplicated in breakpoints.ts. */
+
+.tama-shell {
+  min-height: 100vh;
+}
+
+/* Skip link: the first focusable element, parked above the viewport until
+   keyboard focus pulls it down. */
+
+.tama-shell__skip {
+  position: fixed;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 60;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-surface);
+  border: 2px solid var(--macaw);
+  border-radius: var(--radius-m);
+  color: var(--macaw);
+  translate: 0 calc(-100% - var(--space-4));
+}
+
+.tama-shell__skip:focus {
+  translate: 0 0;
+}
+
+/* Left nav rail, >= 700px. */
+
+.tama-shell__rail {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-start: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  width: 256px;
+  padding: var(--space-4) var(--space-3);
+  background: var(--snow);
+  border-inline-end: 2px solid var(--color-border);
+}
+
+.tama-shell__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3) var(--space-4);
+  color: var(--feather-green);
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+}
+
+.tama-shell__logo:visited {
+  color: var(--feather-green);
+}
+
+.tama-shell__logo:hover,
+.tama-shell__logo:focus-visible {
+  text-decoration: none;
+}
+
+.tama-shell__logo img {
+  width: 40px;
+  height: 40px;
+}
+
+.tama-shell__nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tama-shell__nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-3);
+  border: 2px solid transparent;
+  border-radius: var(--radius-m);
+  color: var(--wolf);
+  font-size: var(--text-s);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.tama-shell__nav-item:visited {
+  color: var(--wolf);
+}
+
+.tama-shell__nav-item:hover,
+.tama-shell__nav-item:focus-visible {
+  text-decoration: none;
+}
+
+.tama-shell__nav-item:hover {
+  background: var(--polar);
+}
+
+.tama-shell__nav-icon {
+  display: inline-flex;
+}
+
+.tama-shell__nav-item--active,
+.tama-shell__nav-item--active:visited,
+.tama-shell__nav-item--active:hover {
+  background: color-mix(in srgb, var(--macaw) 15%, transparent);
+  border-color: var(--macaw);
+  color: var(--macaw);
+}
+
+/* The MORE area: theme switch and log out, pinned to the rail's bottom. */
+
+.tama-shell__more {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-block-start: auto;
+  padding: var(--space-3) var(--space-1);
+}
+
+/* Center region. */
+
+.tama-shell__center {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin-inline-start: 256px;
+}
+
+/* Top stat bar: only on narrow desktop and mobile, where the sidebar's
+   numbers have nowhere else to live. */
+
+.tama-shell__statbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--snow);
+  border-block-end: 2px solid var(--color-border);
+}
+
+.tama-shell__flag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 28px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-s);
+  color: var(--wolf);
+  font-size: var(--text-xs);
+  letter-spacing: 0.8px;
+}
+
+/* The 1056px content unit: 592px main, 48px gutter, 368px sidebar,
+   centered in whatever the rail leaves over. */
+
+.tama-shell__content {
+  display: flex;
+  justify-content: center;
+  column-gap: 48px;
+  flex: 1;
+  width: 100%;
+  max-width: 1056px;
+  margin-inline: auto;
+  padding: var(--space-5) var(--space-4);
+}
+
+.tama-shell__main {
+  flex: 0 1 592px;
+  min-width: 0;
+}
+
+.tama-shell__sidebar {
+  position: sticky;
+  top: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  flex: 0 0 368px;
+  align-self: flex-start;
+}
+
+.tama-shell__widget p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: var(--text-s);
+}
+
+.tama-shell__widget p + .tama-progress {
+  margin-block-start: var(--space-3);
+}
+
+.tama-shell__widget-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.tama-shell__widget-shield {
+  display: inline-flex;
+  color: var(--macaw);
+}
+
+/* Narrow desktop: rail (256) plus the content unit (1008) no longer fit,
+   the sidebar folds and the stat bar takes over its numbers. */
+
+@media (width < 1264px) {
+  .tama-shell__sidebar {
+    display: none;
+  }
+
+  .tama-shell__statbar {
+    display: flex;
+  }
+}
+
+/* Mobile, below the 700px breakpoint: the rail becomes the fixed bottom
+   tab bar with five icon-only 32px tabs. */
+
+@media (width < 700px) {
+  .tama-shell__center {
+    margin-inline-start: 0;
+    padding-block-end: 80px;
+  }
+
+  .tama-shell__logo,
+  .tama-shell__more,
+  .tama-shell__nav-row--desktop {
+    display: none;
+  }
+
+  /* Icon-only tabs keep their accessible names: the label leaves the
+     screen, not the accessibility tree. */
+  .tama-shell__nav-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .tama-shell__rail {
+    inset: auto 0 0 0;
+    width: 100%;
+    padding: var(--space-1) var(--space-2);
+    border-inline-end: none;
+    border-block-start: 2px solid var(--color-border);
+  }
+
+  .tama-shell__nav-list {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .tama-shell__nav-item {
+    justify-content: center;
+    padding: var(--space-2) var(--space-3);
+  }
+}

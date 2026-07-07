@@ -3,8 +3,9 @@
    that has a token here. Palette names follow the product's color roles.
 
    The mobile breakpoint is 700px. Media queries cannot read custom
-   properties, so the value is duplicated in breakpoints.ts when JS layout
-   logic lands; keep the two in sync. */
+   properties, so the value is duplicated in breakpoints.ts for JS layout
+   logic; the breakpoints test parses this comment and fails if the two
+   drift. */
 
 :root {
   /* brand palette */
