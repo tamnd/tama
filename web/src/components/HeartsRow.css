@@ -1,0 +1,30 @@
+/* Five hearts, cardinal while alive, swan outlines once spent. The heart
+   shape paints through --heart-fill and --heart-stroke, so spending one is
+   a custom-property swap the fill transition can animate. */
+
+.tama-hearts {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.tama-hearts__heart {
+  display: inline-flex;
+}
+
+.tama-hearts__heart--spent {
+  --heart-fill: transparent;
+  --heart-stroke: var(--swan);
+}
+
+/* A live loss pops the heart (pop-in run backwards) and then hollows it:
+   the fill transition waits out the pop before running over dur-fast. */
+.tama-hearts__heart--losing {
+  animation: pop-in var(--dur-base) var(--ease-bounce) reverse;
+}
+
+.tama-hearts__heart--losing .tama-icon-heart__shape {
+  transition:
+    fill var(--dur-fast) var(--ease-out) var(--dur-base),
+    stroke var(--dur-fast) var(--ease-out) var(--dur-base);
+}
