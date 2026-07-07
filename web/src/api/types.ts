@@ -22,6 +22,21 @@ export type LogoutResult = {
   ok: boolean
 }
 
+/** Language in pkg/course/catalog.go. */
+export type Language = {
+  code: string
+  name: string
+  native: string
+  rtl?: boolean
+}
+
+/** Course in pkg/course/catalog.go; GET /api/catalog returns a list. */
+export type Course = {
+  id: string
+  base: Language
+  target: Language
+}
+
 /** The closed code set from pkg/api/errors.go; the HTTP status always
  * matches the code, so callers switch on the code alone. */
 export type ErrorCode =

@@ -1,4 +1,4 @@
-import type { Credentials, ErrorCode, LogoutResult, User } from './types'
+import type { Course, Credentials, ErrorCode, LogoutResult, User } from './types'
 
 // The hand-kept API client. Every call goes through request(), which owns
 // the {data}/{error} envelope, so endpoint functions stay one-liners.
@@ -63,4 +63,8 @@ export function logout(): Promise<LogoutResult> {
 
 export function me(): Promise<User> {
   return request<User>('GET', '/api/me')
+}
+
+export function catalog(from: string): Promise<Course[]> {
+  return request<Course[]>('GET', `/api/catalog?from=${encodeURIComponent(from)}`)
 }
