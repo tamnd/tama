@@ -3,7 +3,7 @@
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { useRef } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { ToastProvider, useToast } from '../src/components/Toast'
+import { ToastProvider, useToast } from '@/components/Toast'
 
 beforeEach(() => vi.useFakeTimers())
 afterEach(() => {

@@ -8,7 +8,13 @@ type TapTokenProps = {
 
 // The word-bank chip: a small secondary-button face that presses down.
 // Hollow tokens keep the bank layout stable after their word moves up.
-export function TapToken({ hollow = false, disabled, className, children, ...rest }: TapTokenProps) {
+export function TapToken({
+  hollow = false,
+  disabled,
+  className,
+  children,
+  ...rest
+}: TapTokenProps) {
   const classes = ['tama-tap-token']
   if (hollow) classes.push('tama-tap-token--hollow')
   if (className) classes.push(className)

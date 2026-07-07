@@ -47,10 +47,7 @@ export function PathNode({ state, label, progress, jumpHere = false, onClick }: 
         </span>
       ) : (
         state === 'active' && (
-          <span
-            className="tama-path-node__bubble tama-path-node__bubble--start"
-            aria-hidden="true"
-          >
+          <span className="tama-path-node__bubble tama-path-node__bubble--start" aria-hidden="true">
             Start
           </span>
         )

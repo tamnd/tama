@@ -2,8 +2,8 @@
 
 import { cleanup, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Field } from '../src/components/Field'
-import { TextInput } from '../src/components/TextInput'
+import { Field } from '@/components/Field'
+import { TextInput } from '@/components/TextInput'
 
 afterEach(cleanup)
 

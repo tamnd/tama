@@ -1,0 +1,4 @@
+dist/
+package-lock.json
+# tokens.css keeps the uppercase hex the token tests assert; prettier would lowercase it
+src/styles/tokens.css

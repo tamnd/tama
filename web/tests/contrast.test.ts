@@ -31,7 +31,7 @@ const root = parseBlock(':root')
 const dark = parseBlock("html[data-theme='dark']")
 
 function resolve(name: string, theme: Map<string, string>): string {
-  let value = theme.get(name) ?? root.get(name)
+  const value = theme.get(name) ?? root.get(name)
   if (value === undefined) throw new Error(`token not found: ${name}`)
   const ref = value.match(/^var\((--[\w-]+)\)$/)
   if (ref) return resolve(ref[1], theme)

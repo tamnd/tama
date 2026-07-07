@@ -2,7 +2,7 @@
 
 import { cleanup, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it } from 'vitest'
-import { ProgressBar } from '../src/components/ProgressBar'
+import { ProgressBar } from '@/components/ProgressBar'
 
 afterEach(cleanup)
 

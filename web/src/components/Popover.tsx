@@ -16,7 +16,9 @@ type PopoverProps = {
 }
 
 const supportsAnchor =
-  typeof CSS !== 'undefined' && typeof CSS.supports === 'function' && CSS.supports('anchor-name: --tama')
+  typeof CSS !== 'undefined' &&
+  typeof CSS.supports === 'function' &&
+  CSS.supports('anchor-name: --tama')
 
 // The lesson popover shell that hangs under a path node. It is plain
 // content, never focused and never focusable, so opening one steals

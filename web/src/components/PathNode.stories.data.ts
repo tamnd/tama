@@ -6,7 +6,7 @@ import type { PathNodeProgress, PathNodeState } from './PathNode'
 export const SERPENTINE_OFFSETS = [0, 44, 0, -44] as const
 
 export function serpentineOffset(index: number): number {
-  return SERPENTINE_OFFSETS[index % SERPENTINE_OFFSETS.length]
+  return SERPENTINE_OFFSETS[index % SERPENTINE_OFFSETS.length] ?? 0
 }
 
 export type DemoEntry =

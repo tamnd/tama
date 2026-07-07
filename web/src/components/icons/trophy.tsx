@@ -11,10 +11,7 @@ export function TrophyIcon({ size = 24 }: IconProps) {
         strokeWidth="2.5"
         strokeLinecap="round"
       />
-      <path
-        fill="currentColor"
-        d="M6 2h12v7a6 6 0 0 1-12 0zM10.5 14.5h3V18h-3z"
-      />
+      <path fill="currentColor" d="M6 2h12v7a6 6 0 0 1-12 0zM10.5 14.5h3V18h-3z" />
       <rect x="6.5" y="17.5" width="11" height="4.5" rx="1.5" fill="currentColor" />
     </svg>
   )

@@ -1,11 +1,4 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useRef,
-  useState,
-  type ReactNode,
-} from 'react'
+import { createContext, useCallback, useContext, useRef, useState, type ReactNode } from 'react'
 import { XIcon } from './icons/x'
 import './Toast.css'
 
@@ -80,7 +73,12 @@ export function Toast({ icon, onDismiss, children }: ToastProps) {
         </span>
       )}
       <span className="tama-toast__message">{children}</span>
-      <button type="button" className="tama-toast__dismiss" aria-label="Dismiss" onClick={onDismiss}>
+      <button
+        type="button"
+        className="tama-toast__dismiss"
+        aria-label="Dismiss"
+        onClick={onDismiss}
+      >
         <XIcon size={16} />
       </button>
     </div>
