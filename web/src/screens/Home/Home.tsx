@@ -1,6 +1,6 @@
 import { useEffect, useState, type CSSProperties } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { logout } from '@/api/client'
+import { catalog, logout } from '@/api/client'
 import { Button } from '@/components/Button'
 import { Card, CardHeader } from '@/components/Card'
 import { useAuth } from '@/state/auth'
@@ -8,12 +8,6 @@ import './Home.css'
 
 // Static shell for the foundation milestone: the three-column layout, the nav
 // rail, a demo path, and the sidebar widgets. Real data arrives with M3/M5.
-
-type Course = {
-  id: string
-  base: { code: string; name: string }
-  target: { code: string; name: string; native: string }
-}
 
 const NAV = [
   { icon: '\u{1F3E0}', label: 'Learn', active: true },
@@ -41,8 +35,7 @@ export function Home() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    fetch('/api/catalog?from=en')
-      .then((r) => r.json() as Promise<Course[]>)
+    catalog('en')
       .then((courses) => setCatalogSize(courses.length))
       .catch(() => setCatalogSize(null))
   }, [])
