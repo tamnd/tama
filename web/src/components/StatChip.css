@@ -1,0 +1,69 @@
+/* Top-bar stat counters: icon plus a bold number, no chrome around them.
+   Each kind colors its count with its icon's brand tone; the zero-day
+   streak repaints the flame and the count hare. */
+
+.tama-statchip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.tama-statchip__icon {
+  display: inline-flex;
+}
+
+.tama-statchip__value {
+  font-size: var(--text-m);
+  line-height: 1;
+}
+
+/* Chips count at 700, not the celebration 900. */
+.tama-statchip .tama-countup {
+  font-weight: 700;
+}
+
+.tama-statchip--streak .tama-statchip__value {
+  color: var(--fox);
+}
+
+.tama-statchip--gems .tama-statchip__value {
+  color: var(--macaw);
+}
+
+.tama-statchip--xp .tama-statchip__value {
+  color: var(--bee);
+}
+
+/* The unlit flame: zero days greys the icon and the count together. */
+.tama-statchip--zero {
+  --flame-body: var(--hare);
+  --flame-core: var(--hare);
+}
+
+.tama-statchip--zero .tama-statchip__value {
+  color: var(--hare);
+}
+
+/* Crown level chip: a bee-tinted pill around the crown and the level. */
+.tama-crownchip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  background-color: color-mix(in srgb, var(--bee) 20%, var(--snow));
+}
+
+.tama-crownchip__icon {
+  display: inline-flex;
+}
+
+.tama-crownchip__value {
+  color: var(--bee-deep);
+  font-size: var(--text-s);
+  line-height: 1;
+}
+
+.tama-crownchip .tama-countup {
+  font-weight: 700;
+}
