@@ -44,6 +44,7 @@ import { CrownChip, StatChip } from '@/components/StatChip'
 import { TapToken } from '@/components/TapToken'
 import { TextArea } from '@/components/TextArea'
 import { TextInput } from '@/components/TextInput'
+import { ThemeToggle } from '@/components/ThemeToggle'
 import { ToastProvider, useToast } from '@/components/Toast'
 import { Toggle } from '@/components/Toggle'
 import { WordBank } from '@/components/WordBank'
@@ -610,6 +611,37 @@ function OverlayDemos() {
   )
 }
 
+// The doc's three review widths: full desktop, narrow desktop, mobile.
+const SHELL_FRAMES = [
+  { width: 1280, note: 'rail, path column, and sidebar' },
+  { width: 900, note: 'the sidebar folds into the top stat bar' },
+  { width: 375, note: 'bottom tab bar, stat bar on top' },
+]
+
+function ShellSection() {
+  return (
+    <Section
+      title="Shell layouts"
+      path="web/src/app/Shell.tsx"
+      note="Each frame is the live shell in its own iframe; drag a corner to resize it. The sidebar folds under 1264px and the rail becomes the tab bar under 700px."
+    >
+      {SHELL_FRAMES.map(({ width, note }) => (
+        <figure key={width} className="tama-gallery__shell-frame">
+          <figcaption className="tama-gallery__shell-caption">
+            <code>{width}px</code> {note}
+          </figcaption>
+          <div
+            className="tama-gallery__shell-resizer"
+            style={{ '--frame-width': `${width}px` } as CSSProperties}
+          >
+            <iframe src="/dev/gallery/shell" title={`Shell at ${width}px`} />
+          </div>
+        </figure>
+      ))}
+    </Section>
+  )
+}
+
 const starIcon = (
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
     <path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z" />
@@ -617,27 +649,11 @@ const starIcon = (
 )
 
 export default function Gallery() {
-  const [theme, setTheme] = useState<'light' | 'dark'>(() =>
-    document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
-  )
-
-  function toggleTheme() {
-    const next = theme === 'light' ? 'dark' : 'light'
-    if (next === 'dark') {
-      document.documentElement.dataset.theme = 'dark'
-    } else {
-      delete document.documentElement.dataset.theme
-    }
-    setTheme(next)
-  }
-
   return (
     <div className="tama-gallery">
       <header className="tama-gallery__header">
         <h1>Component gallery</h1>
-        <Button variant="secondary" size="small" onClick={toggleTheme}>
-          {theme === 'light' ? 'Dark theme' : 'Light theme'}
-        </Button>
+        <ThemeToggle />
       </header>
 
       <Section title="Tokens" path="web/src/styles/tokens.css">
@@ -741,6 +757,7 @@ export default function Gallery() {
       <OverlaySection />
       <IconsSection />
       <StatSection />
+      <ShellSection />
     </div>
   )
 }

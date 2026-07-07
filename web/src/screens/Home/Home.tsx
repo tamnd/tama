@@ -1,38 +1,29 @@
 import { useEffect, useState, type CSSProperties } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { catalog, logout } from '@/api/client'
+import { catalog } from '@/api/client'
 import { Button } from '@/components/Button'
 import { Card, CardHeader } from '@/components/Card'
-import { useAuth } from '@/state/auth'
+import { BookIcon } from '@/components/icons/book'
+import { ChestNode, PathNode, type PathNodeState } from '@/components/PathNode'
 import './Home.css'
 
-// Static shell for the foundation milestone: the three-column layout, the nav
-// rail, a demo path, and the sidebar widgets. Real data arrives with M3/M5.
+// The learn screen's main column: unit banner, a demo path, and the course
+// picker card. The Shell owns the rail, stat bar, and sidebar around it.
+// Real path data arrives with M3/M5.
 
-const NAV = [
-  { icon: '\u{1F3E0}', label: 'Learn', active: true },
-  { icon: '\u{1F4AA}', label: 'Practice', active: false },
-  { icon: '\u{1F6E1}️', label: 'Leaderboards', active: false },
-  { icon: '\u{1F3AF}', label: 'Quests', active: false },
-  { icon: '\u{1F6CD}️', label: 'Shop', active: false },
-  { icon: '\u{1F464}', label: 'Profile', active: false },
-] as const
+type DemoEntry =
+  { kind: 'node'; state: PathNodeState; label: string } | { kind: 'chest'; label: string }
 
-type NodeState = 'active' | 'done' | 'locked' | 'chest'
-
-const DEMO_PATH: { state: NodeState; icon: string }[] = [
-  { state: 'active', icon: '★' },
-  { state: 'locked', icon: '★' },
-  { state: 'locked', icon: '\u{1F4D6}' },
-  { state: 'chest', icon: '\u{1F381}' },
-  { state: 'locked', icon: '★' },
-  { state: 'locked', icon: '\u{1F3C6}' },
+const DEMO_PATH: DemoEntry[] = [
+  { kind: 'node', state: 'active', label: 'Lesson 1, current' },
+  { kind: 'node', state: 'locked', label: 'Lesson 2, locked' },
+  { kind: 'node', state: 'locked', label: 'Lesson 3, locked' },
+  { kind: 'chest', label: 'Reward chest' },
+  { kind: 'node', state: 'locked', label: 'Lesson 4, locked' },
+  { kind: 'node', state: 'legendary', label: 'Legendary challenge' },
 ]
 
 export function Home() {
   const [catalogSize, setCatalogSize] = useState<number | null>(null)
-  const { signOut } = useAuth()
-  const navigate = useNavigate()
 
   useEffect(() => {
     catalog('en')
@@ -40,96 +31,44 @@ export function Home() {
       .catch(() => setCatalogSize(null))
   }, [])
 
-  function handleLogout() {
-    void (async () => {
-      try {
-        await logout()
-      } catch {
-        // A dead session is already logged out.
-      }
-      signOut()
-      await navigate('/login', { replace: true })
-    })()
-  }
-
   return (
-    <div className="layout">
-      <nav className="nav">
-        <div className="nav-logo">
-          <img src="/tama.svg" alt="" />
-          tama
+    <div className="tama-home">
+      <div className="tama-home__banner">
+        <div>
+          <div className="tama-home__crumb">Section 1, Unit 1</div>
+          <h2>Order food and drink</h2>
         </div>
-        {NAV.map((item) => (
-          <button key={item.label} className={`nav-item${item.active ? ' active' : ''}`}>
-            <span className="icon">{item.icon}</span>
-            {item.label.toUpperCase()}
-          </button>
+        <button type="button" className="tama-home__guidebook" aria-label="Guidebook">
+          <BookIcon size={24} />
+        </button>
+      </div>
+
+      <div className="tama-home__path">
+        {DEMO_PATH.map((entry, i) => (
+          <div
+            key={i}
+            className="tama-home__path-row"
+            style={{ '--node-offset': `${nodeOffset(i)}px` } as CSSProperties}
+          >
+            {entry.kind === 'chest' ? (
+              <ChestNode label={entry.label} />
+            ) : (
+              <PathNode state={entry.state} label={entry.label} />
+            )}
+          </div>
         ))}
-      </nav>
+        <img className="tama-home__mascot" src="/tama.svg" alt="Tama the cat" />
+      </div>
 
-      <main className="path">
-        <div className="unit-banner">
-          <div>
-            <div className="crumb">Section 1, Unit 1</div>
-            <h2>Order food and drink</h2>
-          </div>
-          <button className="guidebook" title="Guidebook">
-            {'\u{1F4D3}'}
-          </button>
-        </div>
-
-        <div className="nodes">
-          {DEMO_PATH.map((node, i) => (
-            <div className="node-row" key={i}>
-              {node.state === 'active' && <div className="start-bubble">START</div>}
-              <button
-                className={`node ${node.state}`}
-                disabled={node.state === 'locked'}
-                style={{ '--node-offset': `${nodeOffset(i)}px` } as CSSProperties}
-              >
-                {node.state === 'chest' ? '\u{1F381}' : node.icon}
-              </button>
-            </div>
-          ))}
-          <img className="mascot" src="/tama.svg" alt="Tama the cat" />
-        </div>
-      </main>
-
-      <aside className="sidebar">
-        <div className="stat-row">
-          <span className="stat streak">
-            <span className="icon">{'\u{1F525}'}</span> 0
-          </span>
-          <span className="stat gems">
-            <span className="icon">{'\u{1F48E}'}</span> 500
-          </span>
-          <span className="stat hearts">
-            <span className="icon">{'❤️'}</span> 5
-          </span>
-        </div>
-
-        <Card>
-          <CardHeader>Daily quests</CardHeader>
-          <p>Earn 30 XP</p>
-          <div className="quest-bar">
-            <div className="quest-bar-fill" style={{ '--quest-progress': '0%' } as CSSProperties} />
-          </div>
-        </Card>
-
-        <Card>
-          <CardHeader>Pick a course</CardHeader>
-          <p>
-            {catalogSize === null
-              ? 'Any language to any language.'
-              : `${catalogSize} courses from English, or generate any other pair.`}
-          </p>
-          <Button variant="primary">Get started</Button>
-        </Card>
-
-        <Button variant="secondary" size="small" onClick={handleLogout}>
-          Log out
-        </Button>
-      </aside>
+      <Card className="tama-home__course">
+        <CardHeader>Pick a course</CardHeader>
+        <p>
+          {catalogSize === null
+            ? 'Any language to any language.'
+            : `${catalogSize} courses from English, or generate any other pair.`}
+        </p>
+        <Button variant="primary">Get started</Button>
+      </Card>
     </div>
   )
 }
